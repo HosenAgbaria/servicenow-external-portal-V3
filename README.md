@@ -242,7 +242,24 @@ npm run test:a11y
 
 ## 📦 Deployment
 
-### Build for Production
+### Quick Deploy to GitHub Pages
+
+1. **Fork or clone this repository**
+2. **Set up environment variables** in GitHub repository settings:
+   - Go to Settings → Secrets and variables → Actions
+   - Add the following secrets:
+     - `VITE_SERVICENOW_BASE_URL`
+     - `VITE_SERVICENOW_USERNAME`
+     - `VITE_SERVICENOW_PASSWORD`
+     - `VITE_SERVICENOW_CLIENT_ID`
+     - `VITE_SERVICENOW_CLIENT_SECRET`
+
+3. **Enable GitHub Pages**:
+   - Go to Settings → Pages
+   - Source: GitHub Actions
+   - The workflow will automatically deploy on push to main
+
+### Local Production Build
 ```bash
 npm run build
 ```
@@ -254,10 +271,37 @@ npm run preview
 
 ### Environment Variables
 ```bash
-# .env.local
-VITE_SERVICENOW_INSTANCE=https://your-instance.service-now.com
-VITE_SERVICENOW_CLIENT_ID=your_client_id
-VITE_SERVICENOW_CLIENT_SECRET=your_client_secret
+# .env (create from .env.example)
+REACT_APP_SERVICENOW_BASE_URL=https://your-instance.service-now.com
+REACT_APP_SERVICENOW_USERNAME=your_username
+REACT_APP_SERVICENOW_PASSWORD=your_password
+REACT_APP_SERVICENOW_CLIENT_ID=your_client_id
+REACT_APP_SERVICENOW_CLIENT_SECRET=your_client_secret
+```
+
+### Docker Deployment
+```bash
+# Build and run with Docker
+docker build -t servicenow-portal .
+docker run -p 3001:3001 servicenow-portal
+
+# Or use docker-compose
+docker-compose up --build
+```
+
+### Cloud Deployment Options
+
+#### Vercel
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/YOUR_USERNAME/servicenow-external-portal)
+
+#### Netlify
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/YOUR_USERNAME/servicenow-external-portal)
+
+#### Heroku
+```bash
+heroku create your-app-name
+heroku config:set REACT_APP_SERVICENOW_BASE_URL=your-instance-url
+git push heroku main
 ```
 
 ## 🚀 Performance Optimizations

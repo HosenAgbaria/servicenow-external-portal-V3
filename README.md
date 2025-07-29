@@ -1,5 +1,5 @@
 # ServiceNow External Portal
-<!-- Deployment trigger -->
+<!-- Deployment trigger - Force rebuild $(date) -->
 
 A modern, dynamic React portal that renders ServiceNow catalog items and record producers using real-time API metadata. Built with Vite, React, TypeScript, TailwindCSS, and shadcn/ui.
 

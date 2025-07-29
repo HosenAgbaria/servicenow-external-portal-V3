@@ -48,6 +48,7 @@ jobs:
           VITE_SERVICENOW_CLIENT_ID: ${{ secrets.VITE_SERVICENOW_CLIENT_ID }}
           VITE_SERVICENOW_CLIENT_SECRET: ${{ secrets.VITE_SERVICENOW_CLIENT_SECRET }}
           NODE_ENV: production
+          CI: false
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

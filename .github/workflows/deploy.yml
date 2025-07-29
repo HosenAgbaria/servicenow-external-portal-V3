@@ -39,7 +39,7 @@ jobs:
         run: npm ci
         
       - name: Build application
-        run: npm run build
+        run: npx vite build
         env:
           # Environment variables for build
           VITE_SERVICENOW_BASE_URL: ${{ secrets.VITE_SERVICENOW_BASE_URL }}

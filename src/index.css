@@ -1,0 +1,259 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom colors for better dark mode support */
+@layer utilities {
+  .bg-slate-750 {
+    background-color: rgb(51 65 85 / 0.9); /* Custom color between slate-700 and slate-800 */
+  }
+}
+
+/* Minimal dark mode card fix - override Card component background */
+@layer components {
+  .dark .rounded-xl.border.border-slate-200.bg-white {
+    background-color: rgb(30 41 59) !important; /* slate-800 */
+    border-color: rgb(51 65 59) !important; /* slate-700 */
+  }
+  
+  .dark .rounded-xl.border.border-slate-200.bg-white:hover {
+    background-color: rgb(51 65 85) !important; /* slate-750 */
+    border-color: rgb(71 85 105) !important; /* slate-600 */
+  }
+  
+  /* Override text colors in dark mode cards */
+  .dark .rounded-xl.border.border-slate-200.bg-white .text-slate-950 {
+    color: rgb(255 255 255) !important; /* white */
+  }
+  
+  .dark .rounded-xl.border.border-slate-200.bg-white .text-slate-900 {
+    color: rgb(255 255 255) !important; /* white */
+  }
+  
+  .dark .rounded-xl.border.border-slate-200.bg-white .text-slate-600 {
+    color: rgb(203 213 225) !important; /* slate-300 */
+  }
+}
+
+/* Card improvements */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Equal height cards */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.card-grid > * {
+  height: 100%;
+}
+
+/* Form improvements for dark mode */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: rgb(51 65 85) !important;
+  border-color: rgb(71 85 105) !important;
+  color: rgb(241 245 249) !important;
+}
+
+.dark input:focus,
+.dark textarea:focus,
+.dark select:focus {
+  border-color: rgb(59 130 246) !important;
+  box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1) !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: rgb(148 163 184) !important;
+}
+
+/* Button improvements for dark mode */
+.dark .btn-outline {
+  border-color: rgb(71 85 105) !important;
+  color: rgb(203 213 225) !important;
+}
+
+.dark .btn-outline:hover {
+  background-color: rgb(51 65 85) !important;
+  border-color: rgb(100 116 139) !important;
+}
+
+/* Ensure dark mode text colors */
+.dark .text-white {
+  color: rgb(255 255 255) !important;
+}
+
+.dark .text-slate-300 {
+  color: rgb(203 213 225) !important;
+}
+
+.dark .text-slate-400 {
+  color: rgb(148 163 184) !important;
+}
+
+.dark .text-blue-400 {
+  color: rgb(96 165 250) !important;
+}
+
+/* Form input dark mode overrides */
+.dark .border-input {
+  border-color: rgb(71 85 105) !important;
+}
+
+.dark .bg-background {
+  background-color: rgb(51 65 85) !important;
+}
+
+.dark .text-muted-foreground {
+  color: rgb(148 163 184) !important;
+}
+
+.dark .ring-ring {
+  --tw-ring-color: rgb(59 130 246) !important;
+}
+
+.dark .ring-offset-background {
+  --tw-ring-offset-color: rgb(51 65 85) !important;
+}
+
+/* Ensure required field asterisk is visible in dark mode */
+.dark .text-red-500 {
+  color: rgb(239 68 68) !important; /* red-500 */
+}
+
+/* RTL Language Support */
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+[dir="rtl"] .space-x-3 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+[dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+[dir="rtl"] .space-x-1 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+[dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+[dir="rtl"] .space-x-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+[dir="rtl"] .space-x-8 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 1;
+}
+
+[dir="rtl"] .ml-2 {
+  margin-left: 0;
+  margin-right: 0.5rem;
+}
+
+[dir="rtl"] .ml-3 {
+  margin-left: 0;
+  margin-right: 0.75rem;
+}
+
+[dir="rtl"] .ml-4 {
+  margin-left: 0;
+  margin-right: 1rem;
+}
+
+[dir="rtl"] .mr-2 {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+[dir="rtl"] .mr-3 {
+  margin-right: 0;
+  margin-left: 0.75rem;
+}
+
+[dir="rtl"] .mr-4 {
+  margin-right: 0;
+  margin-left: 1rem;
+}
+
+[dir="rtl"] .pl-3 {
+  padding-left: 0;
+  padding-right: 0.75rem;
+}
+
+[dir="rtl"] .pl-4 {
+  padding-left: 0;
+  padding-right: 1rem;
+}
+
+[dir="rtl"] .pl-6 {
+  padding-left: 0;
+  padding-right: 1.5rem;
+}
+
+[dir="rtl"] .pr-3 {
+  padding-right: 0;
+  padding-left: 0.75rem;
+}
+
+[dir="rtl"] .pr-4 {
+  padding-right: 0;
+  padding-left: 1rem;
+}
+
+[dir="rtl"] .pr-6 {
+  padding-right: 0;
+  padding-left: 1.5rem;
+}
+
+[dir="rtl"] .text-left {
+  text-align: right;
+}
+
+[dir="rtl"] .text-right {
+  text-align: left;
+}
+
+[dir="rtl"] .justify-start {
+  justify-content: flex-end;
+}
+
+[dir="rtl"] .justify-end {
+  justify-content: flex-start;
+}
+
+[dir="rtl"] .items-start {
+  align-items: flex-end;
+}
+
+[dir="rtl"] .items-end {
+  align-items: flex-start;
+}
+
+/* Ensure proper font rendering for Arabic and Hebrew */
+[lang="ar"], [lang="he"] {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+}
+
+[lang="ar"] {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+[lang="he"] {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

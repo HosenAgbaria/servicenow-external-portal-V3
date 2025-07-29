@@ -1,0 +1,235 @@
+{
+  "common": {
+    "loading": "טוען...",
+    "error": "שגיאה",
+    "success": "הצלחה",
+    "cancel": "ביטול",
+    "submit": "שלח",
+    "save": "שמור",
+    "delete": "מחק",
+    "edit": "ערוך",
+    "close": "סגור",
+    "back": "חזור",
+    "next": "הבא",
+    "previous": "הקודם",
+    "search": "חיפוש",
+    "filter": "סינון",
+    "clear": "נקה",
+    "apply": "החל",
+    "reset": "אפס",
+    "showMore": "הצג עוד",
+    "showLess": "הצג פחות",
+    "noResults": "לא נמצאו תוצאות",
+    "noData": "אין נתונים זמינים",
+    "noDescription": "אין תיאור זמין",
+    "required": "נדרש",
+    "optional": "אופציונלי"
+  },
+  "navigation": {
+    "home": "בית",
+    "serviceCatalog": "קטלוג שירותים",
+    "knowledgeBase": "מאגר ידע",
+    "myRequests": "הבקשות שלי",
+    "storedRequests": "בקשות שמורות"
+  },
+  "header": {
+    "brandName": "פורטל חיצוני",
+    "searchPlaceholder": "חיפוש שירותים...",
+    "themeToggle": "החלף ערכת נושא",
+    "mobileMenu": "תפריט נייד"
+  },
+  "home": {
+    "hero": {
+      "title": "ברוכים הבאים לפורטל החיצוני של משרד האוצר",
+      "subtitle": "גש לשירותי הממשלה ומשאבים בקלות",
+      "browseServices": "עיין בשירותים",
+      "learnMore": "למידע נוסף"
+    },
+    "search": {
+      "placeholder": "חפש שירותים, מדריכים ומשאבים..."
+    },
+    "quickAccess": {
+      "title": "גישה מהירה",
+      "subtitle": "השירותים והמשאבים הפופולריים ביותר"
+    },
+    "quickAccessPortal": {
+      "title": "פורטל גישה מהירה",
+      "description": "גש לשירותים ומשאבים הנפוצים ביותר",
+      "serviceCatalog": {
+        "title": "קטלוג שירותים",
+        "description": "עיין ובקש שירותי ממשלה"
+      },
+      "knowledgeBase": {
+        "title": "מאגר ידע",
+        "description": "מצא תשובות ותיעוד"
+      },
+      "myRequests": {
+        "title": "הבקשות שלי",
+        "description": "עקוב ונהל את בקשות השירות שלך"
+      }
+    },
+    "featuredArticles": {
+      "title": "מאמרים מומלצים",
+      "subtitle": "עדכונים אחרונים ומידע חשוב"
+    },
+    "featuredResources": {
+      "title": "משאבים מומלצים",
+      "description": "מדריכים שימושיים ומידע חשוב",
+      "readArticle": "קרא מאמר",
+      "userGuide": {
+        "title": "מדריך משתמש",
+        "readTime": "5 דקות קריאה",
+        "subtitle": "איך להגיש בקשה לשירות",
+        "description": "מדריך מלא להגשת ומעקב אחר בקשות שירות דרך פורטל משרד האוצר"
+      },
+      "security": {
+        "title": "אבטחה",
+        "readTime": "4 דקות קריאה",
+        "subtitle": "הנחיות אבטחת סיסמאות",
+        "description": "הנחיות אבטחה רשמיות ליצירה וניהול סיסמאות חשבון הממשלה שלך"
+      },
+      "technical": {
+        "title": "טכני",
+        "readTime": "3 דקות קריאה",
+        "subtitle": "מדריך תמיכה טכנית",
+        "description": "תיעוד טכני ומדריכי פתרון בעיות"
+      }
+    },
+    "popularSearches": {
+      "title": "חיפושים פופולריים",
+      "passwordReset": "איפוס סיסמה",
+      "softwareInstallation": "התקנת תוכנה",
+      "accessRequest": "בקשת גישה",
+      "hardwareSupport": "תמיכה בחומרה",
+      "emailSetup": "הגדרת אימייל"
+    },
+    "quickLinks": {
+      "browseServices": "עיין בשירותים",
+      "knowledgeBase": "מאגר ידע",
+      "testApiConnection": "בדוק חיבור API"
+    }
+  },
+  "catalog": {
+    "title": "קטלוג שירותים",
+    "subtitle": "עיין ובקש שירותים מהקטלוג המקיף שלנו",
+    "searchPlaceholder": "חיפוש שירותים...",
+    "categoryFilter": "סינון לפי קטגוריה",
+    "allCategories": "כל הקטגוריות",
+    "noServices": "לא נמצאו שירותים",
+    "noServicesDescription": "נסה לשנות את החיפוש או סינון הקטגוריות",
+    "showingResults": "מציג {{count}} מתוך {{total}} שירותים",
+    "requestService": "בקש שירות",
+    "loadingServices": "טוען שירותים...",
+    "errorLoading": "שגיאה בטעינת שירותים",
+    "tryAgain": "נסה שוב"
+  },
+  "form": {
+    "requestForm": "טופס בקשה",
+    "submitRequest": "שלח בקשה",
+    "problemDescription": "תיאור התקלה",
+    "description": "תיאור",
+    "name": "שם",
+    "email": "אימייל",
+    "phone": "טלפון",
+    "category": "קטגוריה",
+    "priority": "עדיפות",
+    "urgency": "דחיפות",
+    "details": "פרטים",
+    "attachments": "קבצים מצורפים",
+    "comments": "הערות",
+    "notes": "הערות",
+    "selectOption": "בחר אפשרות",
+    "selectDate": "בחר תאריך",
+    "selectTime": "בחר שעה",
+    "uploadFile": "העלה קובץ",
+    "dragAndDrop": "גרור ושחרר קבצים כאן, או לחץ לבחירה",
+    "fileSizeLimit": "גודל קובץ מקסימלי: {{size}}MB",
+    "supportedFormats": "פורמטים נתמכים: {{formats}}",
+    "loadingForm": "טוען טופס...",
+    "searchService": "חיפוש שירות"
+  },
+  "requests": {
+    "title": "הבקשות שלי",
+    "subtitle": "עקוב ונהל את בקשות השירות שלך",
+    "newRequest": "בקשה חדשה",
+    "requestNumber": "מספר בקשה",
+    "status": "סטטוס",
+    "created": "נוצר",
+    "updated": "עודכן",
+    "priority": "עדיפות",
+    "category": "קטגוריה",
+    "description": "תיאור",
+    "actions": "פעולות",
+    "view": "צפייה",
+    "edit": "עריכה",
+    "delete": "מחיקה",
+    "noRequests": "לא נמצאו בקשות",
+    "noRequestsDescription": "עדיין לא שלחת בקשות"
+  },
+  "knowledge": {
+    "title": "מאגר ידע",
+    "subtitle": "מצא תשובות ותיעוד",
+    "searchPlaceholder": "חיפוש במאגר הידע...",
+    "categories": "קטגוריות",
+    "popularArticles": "מאמרים פופולריים",
+    "recentArticles": "מאמרים אחרונים",
+    "noArticles": "לא נמצאו מאמרים",
+    "noArticlesDescription": "נסה לשנות את קריטריוני החיפוש"
+  },
+  "messages": {
+    "requestSubmitted": "הבקשה נשלחה בהצלחה!",
+    "requestCreated": "הבקשה נוצרה בהצלחה!",
+    "requestItemCreated": "פריט הבקשה נוצר בהצלחה!",
+    "requestNumber": "מספר בקשה: {{number}}",
+    "requestItemNumber": "פריט בקשה: {{number}}",
+    "statusSubmitted": "סטטוס: נשלח",
+    "processingMessage": "הבקשה שלך נוצרה ב-ServiceNow ונמצאת בעיבוד.",
+    "errorSubmitting": "שגיאה בשליחת הבקשה",
+    "errorLoading": "שגיאה בטעינת נתונים",
+    "networkError": "שגיאת רשת. בדוק את החיבור שלך.",
+    "validationError": "בדוק את הקלט שלך ונסה שוב.",
+    "sessionExpired": "הסשן שלך פג תוקף. רענן את הדף.",
+    "unauthorized": "אין לך הרשאה לבצע פעולה זו.",
+    "notFound": "המשאב המבוקש לא נמצא."
+  },
+  "status": {
+    "draft": "טיוטה",
+    "submitted": "נשלח",
+    "inProgress": "בתהליך",
+    "pending": "ממתין",
+    "approved": "אושר",
+    "rejected": "נדחה",
+    "completed": "הושלם",
+    "cancelled": "בוטל",
+    "closed": "סגור"
+  },
+  "priority": {
+    "low": "נמוכה",
+    "medium": "בינונית",
+    "high": "גבוהה",
+    "critical": "קריטית"
+  },
+  "urgency": {
+    "low": "נמוכה",
+    "medium": "בינונית",
+    "high": "גבוהה",
+    "critical": "קריטית"
+  },
+  "categories": {
+    "software": "תוכנה",
+    "hardware": "חומרה",
+    "network": "רשת",
+    "access": "גישה",
+    "office": "משרד",
+    "template": "ניהול תבניות",
+    "roleDelegation": "האצלת תפקידים",
+    "applicationAccess": "גישה ליישומים וחשבונות",
+    "maor": "מאור"
+  },
+  "language": {
+    "en": "English",
+    "he": "עברית",
+    "ar": "العربية",
+    "switchLanguage": "החלף שפה"
+  }
+} 

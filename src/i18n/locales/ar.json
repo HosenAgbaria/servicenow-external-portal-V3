@@ -1,0 +1,235 @@
+{
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "نجح",
+    "cancel": "إلغاء",
+    "submit": "إرسال",
+    "save": "حفظ",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "close": "إغلاق",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق",
+    "search": "بحث",
+    "filter": "تصفية",
+    "clear": "مسح",
+    "apply": "تطبيق",
+    "reset": "إعادة تعيين",
+    "showMore": "عرض المزيد",
+    "showLess": "عرض أقل",
+    "noResults": "لم يتم العثور على نتائج",
+    "noData": "لا توجد بيانات متاحة",
+    "noDescription": "لا يوجد وصف متاح",
+    "required": "مطلوب",
+    "optional": "اختياري"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "serviceCatalog": "كتالوج الخدمات",
+    "knowledgeBase": "قاعدة المعرفة",
+    "myRequests": "طلباتي",
+    "storedRequests": "الطلبات المحفوظة"
+  },
+  "header": {
+    "brandName": "البوابة الخارجية",
+    "searchPlaceholder": "البحث في الخدمات...",
+    "themeToggle": "تبديل المظهر",
+    "mobileMenu": "قائمة الجوال"
+  },
+  "home": {
+    "hero": {
+      "title": "مرحباً بكم في البوابة الخارجية لوزارة المالية",
+      "subtitle": "الوصول إلى خدمات الحكومة والموارد بسهولة",
+      "browseServices": "تصفح الخدمات",
+      "learnMore": "اعرف المزيد"
+    },
+    "search": {
+      "placeholder": "البحث عن الخدمات والأدلة والموارد..."
+    },
+    "quickAccess": {
+      "title": "الوصول السريع",
+      "subtitle": "الخدمات والموارد الأكثر شعبية"
+    },
+    "quickAccessPortal": {
+      "title": "بوابة الوصول السريع",
+      "description": "الوصول إلى الخدمات والموارد الأكثر استخداماً",
+      "serviceCatalog": {
+        "title": "كتالوج الخدمات",
+        "description": "تصفح واطلب خدمات الحكومة"
+      },
+      "knowledgeBase": {
+        "title": "قاعدة المعرفة",
+        "description": "ابحث عن الإجابات والتوثيق"
+      },
+      "myRequests": {
+        "title": "طلباتي",
+        "description": "تتبع وإدارة طلبات الخدمة الخاصة بك"
+      }
+    },
+    "featuredArticles": {
+      "title": "المقالات المميزة",
+      "subtitle": "أحدث التحديثات والمعلومات المهمة"
+    },
+    "featuredResources": {
+      "title": "الموارد المميزة",
+      "description": "أدلة مفيدة ومعلومات مهمة",
+      "readArticle": "اقرأ المقال",
+      "userGuide": {
+        "title": "دليل المستخدم",
+        "readTime": "5 دقائق قراءة",
+        "subtitle": "كيفية تقديم طلب خدمة",
+        "description": "دليل شامل لتقديم ومتابعة طلبات الخدمة من خلال بوابة وزارة المالية"
+      },
+      "security": {
+        "title": "الأمان",
+        "readTime": "4 دقائق قراءة",
+        "subtitle": "إرشادات أمان كلمات المرور",
+        "description": "إرشادات الأمان الرسمية لإنشاء وإدارة كلمات مرور حساب الحكومة"
+      },
+      "technical": {
+        "title": "تقني",
+        "readTime": "3 دقائق قراءة",
+        "subtitle": "دليل الدعم التقني",
+        "description": "التوثيق التقني وأدلة استكشاف الأخطاء"
+      }
+    },
+    "popularSearches": {
+      "title": "البحث الشائع",
+      "passwordReset": "إعادة تعيين كلمة المرور",
+      "softwareInstallation": "تثبيت البرامج",
+      "accessRequest": "طلب الوصول",
+      "hardwareSupport": "دعم الأجهزة",
+      "emailSetup": "إعداد البريد الإلكتروني"
+    },
+    "quickLinks": {
+      "browseServices": "تصفح الخدمات",
+      "knowledgeBase": "قاعدة المعرفة",
+      "testApiConnection": "اختبار اتصال API"
+    }
+  },
+  "catalog": {
+    "title": "كتالوج الخدمات",
+    "subtitle": "تصفح واطلب الخدمات من كتالوجنا الشامل",
+    "searchPlaceholder": "البحث في الخدمات...",
+    "categoryFilter": "تصفية حسب الفئة",
+    "allCategories": "جميع الفئات",
+    "noServices": "لم يتم العثور على خدمات",
+    "noServicesDescription": "حاول تعديل البحث أو تصفية الفئات",
+    "showingResults": "عرض {{count}} من {{total}} خدمة",
+    "requestService": "طلب خدمة",
+    "loadingServices": "جاري تحميل الخدمات...",
+    "errorLoading": "خطأ في تحميل الخدمات",
+    "tryAgain": "حاول مرة أخرى"
+  },
+  "form": {
+    "requestForm": "نموذج الطلب",
+    "submitRequest": "إرسال الطلب",
+    "problemDescription": "وصف المشكلة",
+    "description": "الوصف",
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "category": "الفئة",
+    "priority": "الأولوية",
+    "urgency": "الاستعجال",
+    "details": "التفاصيل",
+    "attachments": "المرفقات",
+    "comments": "التعليقات",
+    "notes": "الملاحظات",
+    "selectOption": "اختر خياراً",
+    "selectDate": "اختر التاريخ",
+    "selectTime": "اختر الوقت",
+    "uploadFile": "رفع ملف",
+    "dragAndDrop": "اسحب وأفلت الملفات هنا، أو انقر للاختيار",
+    "fileSizeLimit": "حد حجم الملف: {{size}} ميجابايت",
+    "supportedFormats": "الصيغ المدعومة: {{formats}}",
+    "loadingForm": "جاري تحميل النموذج...",
+    "searchService": "البحث في الخدمة"
+  },
+  "requests": {
+    "title": "طلباتي",
+    "subtitle": "تتبع وإدارة طلبات الخدمة الخاصة بك",
+    "newRequest": "طلب جديد",
+    "requestNumber": "رقم الطلب",
+    "status": "الحالة",
+    "created": "تم الإنشاء",
+    "updated": "تم التحديث",
+    "priority": "الأولوية",
+    "category": "الفئة",
+    "description": "الوصف",
+    "actions": "الإجراءات",
+    "view": "عرض",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "noRequests": "لم يتم العثور على طلبات",
+    "noRequestsDescription": "لم تقم بإرسال أي طلبات بعد"
+  },
+  "knowledge": {
+    "title": "قاعدة المعرفة",
+    "subtitle": "ابحث عن الإجابات والتوثيق",
+    "searchPlaceholder": "البحث في قاعدة المعرفة...",
+    "categories": "الفئات",
+    "popularArticles": "المقالات الشائعة",
+    "recentArticles": "المقالات الحديثة",
+    "noArticles": "لم يتم العثور على مقالات",
+    "noArticlesDescription": "حاول تعديل معايير البحث"
+  },
+  "messages": {
+    "requestSubmitted": "تم إرسال الطلب بنجاح!",
+    "requestCreated": "تم إنشاء الطلب بنجاح!",
+    "requestItemCreated": "تم إنشاء عنصر الطلب بنجاح!",
+    "requestNumber": "رقم الطلب: {{number}}",
+    "requestItemNumber": "عنصر الطلب: {{number}}",
+    "statusSubmitted": "الحالة: تم الإرسال",
+    "processingMessage": "تم إنشاء طلبك في ServiceNow وهو قيد المعالجة.",
+    "errorSubmitting": "خطأ في إرسال الطلب",
+    "errorLoading": "خطأ في تحميل البيانات",
+    "networkError": "خطأ في الشبكة. تحقق من اتصالك.",
+    "validationError": "تحقق من إدخالك وحاول مرة أخرى.",
+    "sessionExpired": "انتهت صلاحية جلستك. أعد تحميل الصفحة.",
+    "unauthorized": "غير مصرح لك بتنفيذ هذا الإجراء.",
+    "notFound": "لم يتم العثور على المورد المطلوب."
+  },
+  "status": {
+    "draft": "مسودة",
+    "submitted": "تم الإرسال",
+    "inProgress": "قيد التنفيذ",
+    "pending": "في الانتظار",
+    "approved": "تمت الموافقة",
+    "rejected": "مرفوض",
+    "completed": "مكتمل",
+    "cancelled": "ملغي",
+    "closed": "مغلق"
+  },
+  "priority": {
+    "low": "منخفضة",
+    "medium": "متوسطة",
+    "high": "عالية",
+    "critical": "حرجة"
+  },
+  "urgency": {
+    "low": "منخفضة",
+    "medium": "متوسطة",
+    "high": "عالية",
+    "critical": "حرجة"
+  },
+  "categories": {
+    "software": "البرمجيات",
+    "hardware": "الأجهزة",
+    "network": "الشبكة",
+    "access": "الوصول",
+    "office": "المكتب",
+    "template": "إدارة القوالب",
+    "roleDelegation": "تفويض الأدوار",
+    "applicationAccess": "الوصول للتطبيقات والحسابات",
+    "maor": "מאור"
+  },
+  "language": {
+    "en": "English",
+    "he": "עברית",
+    "ar": "العربية",
+    "switchLanguage": "تغيير اللغة"
+  }
+} 

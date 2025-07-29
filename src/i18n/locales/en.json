@@ -1,0 +1,235 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "apply": "Apply",
+    "reset": "Reset",
+    "showMore": "Show More",
+    "showLess": "Show Less",
+    "noResults": "No results found",
+    "noData": "No data available",
+    "noDescription": "No description available",
+    "required": "Required",
+    "optional": "Optional"
+  },
+  "navigation": {
+    "home": "Home",
+    "serviceCatalog": "Service Catalog",
+    "knowledgeBase": "Knowledge Base",
+    "myRequests": "My Requests",
+    "storedRequests": "Stored Requests"
+  },
+  "header": {
+    "brandName": "External Portal",
+    "searchPlaceholder": "Search services...",
+    "themeToggle": "Toggle theme",
+    "mobileMenu": "Toggle mobile menu"
+  },
+  "home": {
+    "hero": {
+      "title": "Welcome to the Ministry of Finance External Portal",
+      "subtitle": "Access government services and resources with ease",
+      "browseServices": "Browse Services",
+      "learnMore": "Learn More"
+    },
+    "search": {
+      "placeholder": "Search for services, guides, and resources..."
+    },
+    "quickAccess": {
+      "title": "Quick Access",
+      "subtitle": "Most popular services and resources"
+    },
+    "quickAccessPortal": {
+      "title": "Quick Access Portal",
+      "description": "Access the most commonly used services and resources",
+      "serviceCatalog": {
+        "title": "Service Catalog",
+        "description": "Browse and request government services"
+      },
+      "knowledgeBase": {
+        "title": "Knowledge Base",
+        "description": "Find answers and documentation"
+      },
+      "myRequests": {
+        "title": "My Requests",
+        "description": "Track and manage your service requests"
+      }
+    },
+    "featuredArticles": {
+      "title": "Featured Articles",
+      "subtitle": "Latest updates and important information"
+    },
+    "featuredResources": {
+      "title": "Featured Resources",
+      "description": "Helpful guides and important information",
+      "readArticle": "Read Article",
+      "userGuide": {
+        "title": "User Guide",
+        "readTime": "5 min read",
+        "subtitle": "How to Submit a Service Request",
+        "description": "Complete guide to submitting and tracking service requests through the Ministry of Finance portal"
+      },
+      "security": {
+        "title": "Security",
+        "readTime": "4 min read",
+        "subtitle": "Password Security Guidelines",
+        "description": "Official security guidelines for creating and managing your government account passwords"
+      },
+      "technical": {
+        "title": "Technical",
+        "readTime": "3 min read",
+        "subtitle": "Technical Support Guide",
+        "description": "Technical documentation and troubleshooting guides"
+      }
+    },
+    "popularSearches": {
+      "title": "Popular Searches",
+      "passwordReset": "Password Reset",
+      "softwareInstallation": "Software Installation",
+      "accessRequest": "Access Request",
+      "hardwareSupport": "Hardware Support",
+      "emailSetup": "Email Setup"
+    },
+    "quickLinks": {
+      "browseServices": "Browse Services",
+      "knowledgeBase": "Knowledge Base",
+      "testApiConnection": "Test API Connection"
+    }
+  },
+  "catalog": {
+    "title": "Service Catalog",
+    "subtitle": "Browse and request services from our comprehensive catalog",
+    "searchPlaceholder": "Search services...",
+    "categoryFilter": "Filter by category",
+    "allCategories": "All Categories",
+    "noServices": "No services found",
+    "noServicesDescription": "Try adjusting your search or category filters",
+    "showingResults": "Showing {{count}} of {{total}} services",
+    "requestService": "Request Service",
+    "loadingServices": "Loading services...",
+    "errorLoading": "Error Loading Services",
+    "tryAgain": "Try Again"
+  },
+  "form": {
+    "requestForm": "Request Form",
+    "submitRequest": "Submit Request",
+    "problemDescription": "Problem Description",
+    "description": "Description",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "category": "Category",
+    "priority": "Priority",
+    "urgency": "Urgency",
+    "details": "Details",
+    "attachments": "Attachments",
+    "comments": "Comments",
+    "notes": "Notes",
+    "selectOption": "Select an option",
+    "selectDate": "Select date",
+    "selectTime": "Select time",
+    "uploadFile": "Upload file",
+    "dragAndDrop": "Drag and drop files here, or click to select",
+    "fileSizeLimit": "File size limit: {{size}}MB",
+    "supportedFormats": "Supported formats: {{formats}}",
+    "loadingForm": "Loading form...",
+    "searchService": "Search Service"
+  },
+  "requests": {
+    "title": "My Requests",
+    "subtitle": "Track and manage your service requests",
+    "newRequest": "New Request",
+    "requestNumber": "Request Number",
+    "status": "Status",
+    "created": "Created",
+    "updated": "Updated",
+    "priority": "Priority",
+    "category": "Category",
+    "description": "Description",
+    "actions": "Actions",
+    "view": "View",
+    "edit": "Edit",
+    "delete": "Delete",
+    "noRequests": "No requests found",
+    "noRequestsDescription": "You haven't submitted any requests yet"
+  },
+  "knowledge": {
+    "title": "Knowledge Base",
+    "subtitle": "Find answers and documentation",
+    "searchPlaceholder": "Search knowledge base...",
+    "categories": "Categories",
+    "popularArticles": "Popular Articles",
+    "recentArticles": "Recent Articles",
+    "noArticles": "No articles found",
+    "noArticlesDescription": "Try adjusting your search criteria"
+  },
+  "messages": {
+    "requestSubmitted": "Request submitted successfully!",
+    "requestCreated": "Request created successfully!",
+    "requestItemCreated": "Request Item created successfully!",
+    "requestNumber": "Request Number: {{number}}",
+    "requestItemNumber": "Request Item: {{number}}",
+    "statusSubmitted": "Status: Submitted",
+    "processingMessage": "Your request has been created in ServiceNow and is being processed.",
+    "errorSubmitting": "Error submitting request",
+    "errorLoading": "Error loading data",
+    "networkError": "Network error. Please check your connection.",
+    "validationError": "Please check your input and try again.",
+    "sessionExpired": "Your session has expired. Please refresh the page.",
+    "unauthorized": "You are not authorized to perform this action.",
+    "notFound": "The requested resource was not found."
+  },
+  "status": {
+    "draft": "Draft",
+    "submitted": "Submitted",
+    "inProgress": "In Progress",
+    "pending": "Pending",
+    "approved": "Approved",
+    "rejected": "Rejected",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "closed": "Closed"
+  },
+  "priority": {
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High",
+    "critical": "Critical"
+  },
+  "urgency": {
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High",
+    "critical": "Critical"
+  },
+  "categories": {
+    "software": "Software",
+    "hardware": "Hardware",
+    "network": "Network",
+    "access": "Access",
+    "office": "Office",
+    "template": "Template Management",
+    "roleDelegation": "Role Delegation",
+    "applicationAccess": "Application and Account Access",
+    "maor": "מאור"
+  },
+  "language": {
+    "en": "English",
+    "he": "עברית",
+    "ar": "العربية",
+    "switchLanguage": "Switch Language"
+  }
+} 

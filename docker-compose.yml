@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  servicenow-portal:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      # ServiceNow Configuration (override with .env file)
+      - SERVICENOW_BASE_URL=${SERVICENOW_BASE_URL:-https://tanivdynamicsltddemo4.service-now.com}
+      - SERVICENOW_USERNAME=${SERVICENOW_USERNAME:-ext.portal.v2}
+      - SERVICENOW_PASSWORD=${SERVICENOW_PASSWORD}
+      - SERVICENOW_CLIENT_ID=${SERVICENOW_CLIENT_ID}
+      - SERVICENOW_CLIENT_SECRET=${SERVICENOW_CLIENT_SECRET}
+    env_file:
+      - .env
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3001/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    volumes:
+      # Optional: Mount logs directory for persistent logging
+      - ./logs:/app/logs
+    networks:
+      - servicenow-network
+
+  # Optional: Add a reverse proxy (nginx) for production
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      # Uncomment for SSL certificates
+      # - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      servicenow-portal:
+        condition: service_healthy
+    networks:
+      - servicenow-network
+    profiles:
+      - production
+
+networks:
+  servicenow-network:
+    driver: bridge
+
+volumes:
+  logs:
+    driver: local

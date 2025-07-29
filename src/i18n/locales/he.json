@@ -176,6 +176,21 @@
     "noArticles": "לא נמצאו מאמרים",
     "noArticlesDescription": "נסה לשנות את קריטריוני החיפוש"
   },
+  "knowledgeBase": {
+    "title": "מאגר ידע",
+    "subtitle": "גלה תשובות מקיפות וחקור את האוסף המובחר שלנו של מאמרי ידע שנועדו לעזור לך להצליח",
+    "searchPlaceholder": "חיפוש מאמרי ידע, מדריכים ופתרונות...",
+    "loadingArticles": "טוען מאמרים...",
+    "errorLoadingArticles": "שגיאה בטעינת מאמרים",
+    "tryAgain": "נסה שוב",
+    "by": "מאת",
+    "helpful": "מועיל",
+    "readArticle": "קרא מאמר",
+    "noArticlesFound": "לא נמצאו מאמרים",
+    "noArticlesForSearch": "לא נמצאו מאמרים עבור \"{{query}}\". נסה מונח חיפוש אחר.",
+    "noArticlesAvailable": "אין מאמרים זמינים כרגע.",
+    "clearSearch": "נקה חיפוש"
+  },
   "messages": {
     "requestSubmitted": "הבקשה נשלחה בהצלחה!",
     "requestCreated": "הבקשה נוצרה בהצלחה!",
@@ -232,4 +247,4 @@
     "ar": "العربية",
     "switchLanguage": "החלף שפה"
   }
-} 
+}

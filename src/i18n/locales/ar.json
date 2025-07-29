@@ -176,6 +176,21 @@
     "noArticles": "لم يتم العثور على مقالات",
     "noArticlesDescription": "حاول تعديل معايير البحث"
   },
+  "knowledgeBase": {
+    "title": "قاعدة المعرفة",
+    "subtitle": "اكتشف إجابات شاملة واستكشف مجموعتنا المختارة من مقالات المعرفة المصممة لمساعدتك على النجاح",
+    "searchPlaceholder": "البحث في مقالات المعرفة والأدلة والحلول...",
+    "loadingArticles": "جاري تحميل المقالات...",
+    "errorLoadingArticles": "خطأ في تحميل المقالات",
+    "tryAgain": "حاول مرة أخرى",
+    "by": "بواسطة",
+    "helpful": "مفيد",
+    "readArticle": "اقرأ المقال",
+    "noArticlesFound": "لم يتم العثور على مقالات",
+    "noArticlesForSearch": "لم يتم العثور على مقالات لـ \"{{query}}\". جرب مصطلح بحث مختلف.",
+    "noArticlesAvailable": "لا توجد مقالات متاحة في الوقت الحالي.",
+    "clearSearch": "مسح البحث"
+  },
   "messages": {
     "requestSubmitted": "تم إرسال الطلب بنجاح!",
     "requestCreated": "تم إنشاء الطلب بنجاح!",
@@ -232,4 +247,4 @@
     "ar": "العربية",
     "switchLanguage": "تغيير اللغة"
   }
-} 
+}

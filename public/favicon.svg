@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 150" width="32" height="32">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#b9e5fb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0072bc;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Simplified Ministry of Finance emblem -->
+  <rect width="140" height="150" fill="url(#grad1)" rx="8"/>
+  
+  <!-- Central emblem design -->
+  <circle cx="70" cy="60" r="35" fill="#ffffff" stroke="#0072bc" stroke-width="2"/>
+  
+  <!-- Star of David -->
+  <path d="M70 35 L80 50 L95 50 L85 65 L95 80 L80 80 L70 95 L60 80 L45 80 L55 65 L45 50 L60 50 Z" 
+        fill="#0072bc" stroke="#ffffff" stroke-width="1"/>
+  
+  <!-- Hebrew text area (simplified) -->
+  <rect x="20" y="110" width="100" height="25" fill="#ffffff" rx="4"/>
+  <text x="70" y="127" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#0072bc">משרד האוצר</text>
+</svg>

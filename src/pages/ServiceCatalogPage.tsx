@@ -176,8 +176,8 @@ export const ServiceCatalogPage: React.FC = () => {
                 textAlign: i18n.language === 'he' || i18n.language === 'ar' ? 'right' : 'left'
               }}
             />
-            <div className="absolute inset-y-0 right-0 pr-6 flex items-center">
-              <svg className={`h-6 w-6 transition-colors duration-300 ${
+            <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+              <svg className={`h-6 w-6 mx-3 transition-colors duration-300 ${
                 theme === 'dark' ? 'text-slate-400' : 'text-slate-400'
               }`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -231,7 +231,7 @@ export const ServiceCatalogPage: React.FC = () => {
         {filteredItems.length === 0 ? (
           <div className="text-center py-12">
             <div className={`w-16 h-16 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4`}>
-              <svg className="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="h-4 w-4 mx-1 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.29-1.009-5.824-2.562M15 6.343A7.962 7.962 0 0112 4c-2.34 0-4.29 1.009-5.824 2.562M15 6.343A7.962 7.962 0 0112 4c-2.34 0-4.29 1.009-5.824 2.562" />
               </svg>
             </div>
@@ -313,4 +313,4 @@ export const ServiceCatalogPage: React.FC = () => {
       </div>
     </div>
   );
-}; 
+};

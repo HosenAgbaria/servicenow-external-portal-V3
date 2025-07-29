@@ -176,6 +176,21 @@
     "noArticles": "No articles found",
     "noArticlesDescription": "Try adjusting your search criteria"
   },
+  "knowledgeBase": {
+    "title": "Knowledge Base",
+    "subtitle": "Discover comprehensive answers and explore our curated collection of knowledge articles designed to help you succeed",
+    "searchPlaceholder": "Search knowledge articles, guides, and solutions...",
+    "loadingArticles": "Loading articles...",
+    "errorLoadingArticles": "Error Loading Articles",
+    "tryAgain": "Try Again",
+    "by": "By",
+    "helpful": "helpful",
+    "readArticle": "Read Article",
+    "noArticlesFound": "No Articles Found",
+    "noArticlesForSearch": "No articles found for \"{{query}}\". Try a different search term.",
+    "noArticlesAvailable": "No articles available at the moment.",
+    "clearSearch": "Clear Search"
+  },
   "messages": {
     "requestSubmitted": "Request submitted successfully!",
     "requestCreated": "Request created successfully!",
@@ -232,4 +247,4 @@
     "ar": "العربية",
     "switchLanguage": "Switch Language"
   }
-} 
+}

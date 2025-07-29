@@ -80,12 +80,17 @@ app.post('/api/servicenow/create-request', async (req, res) => {
     console.log('📋 Catalog Item Category:', catalogItem.category || 'N/A');
 
     // Determine the best approach based on catalog item type
+    // Handle category field - it might be a string or an object with display_value
+    const categoryValue = typeof catalogItem.category === 'string' 
+      ? catalogItem.category 
+      : catalogItem.category?.display_value || catalogItem.category?.value || '';
+    
     const shouldCreateIncident = catalogItem.name.includes('המערכת') || 
                                 catalogItem.name.includes('system') ||
                                 catalogItem.name.includes('issue') ||
                                 catalogItem.name.includes('problem') ||
-                                (catalogItem.category && catalogItem.category.includes('Support')) ||
-                                (catalogItem.category && catalogItem.category.includes('Technical'));
+                                (categoryValue && categoryValue.includes('Support')) ||
+                                (categoryValue && categoryValue.includes('Technical'));
 
     console.log('🎯 Decision: Should create incident?', shouldCreateIncident);
 
@@ -104,12 +109,12 @@ app.post('/api/servicenow/create-request', async (req, res) => {
           
 Request Number: ${requestNumber}
 Catalog Item: ${catalogItem.name}
-Category: ${catalogItem.category || 'Technical Support'}
+Category: ${categoryValue || 'Technical Support'}
 Form Data: ${JSON.stringify(formData, null, 2)}
 
 Submitted via External Portal.`,
           caller_id: SERVICENOW_CONFIG.username,
-          category: catalogItem.category || "Technical Support",
+          category: categoryValue || "Technical Support",
           subcategory: catalogItem.subcategory || "System Issues",
           impact: "2",
           urgency: "2",
@@ -142,13 +147,13 @@ Submitted via External Portal.`,
         
 Request Number: ${requestNumber}
 Catalog Item: ${catalogItem.name}
-Category: ${catalogItem.category || 'General'}
+Category: ${categoryValue || 'General'}
 Form Data: ${JSON.stringify(formData, null, 2)}
 
 Submitted via External Portal.`,
         requested_for: SERVICENOW_CONFIG.username,
         requested_by: SERVICENOW_CONFIG.username,
-        category: catalogItem.category || "General",
+        category: categoryValue || "General",
         subcategory: catalogItem.subcategory || "Catalog Request",
         impact: "2",
         urgency: "2",
@@ -252,12 +257,12 @@ Submitted via External Portal.`,
           
 Request Number: ${requestNumber}
 Catalog Item: ${catalogItem.name}
-Category: ${catalogItem.category || 'General'}
+Category: ${categoryValue || 'General'}
 Form Data: ${JSON.stringify(formData, null, 2)}
 
 Submitted via External Portal.`,
           caller_id: SERVICENOW_CONFIG.username,
-          category: catalogItem.category || "General",
+          category: categoryValue || "General",
           subcategory: catalogItem.subcategory || "Request",
           impact: "2",
           urgency: "2",
@@ -295,13 +300,13 @@ Submitted via External Portal.`,
           
 Request Number: ${requestNumber}
 Catalog Item: ${catalogItem.name}
-Category: ${catalogItem.category || 'General'}
+Category: ${categoryValue || 'General'}
 Form Data: ${JSON.stringify(formData, null, 2)}
 
 Submitted via External Portal.`,
           requested_for: SERVICENOW_CONFIG.username,
           requested_by: SERVICENOW_CONFIG.username,
-          category: catalogItem.category || "General",
+          category: categoryValue || "General",
           subcategory: catalogItem.subcategory || "Request",
           impact: "2",
           urgency: "2",

@@ -241,8 +241,9 @@ class RealServiceNowApiService {
       queryParams.append('sysparm_limit', limit.toString());
       queryParams.append('sysparm_offset', offset.toString());
       
-      // Add fields to return
-      queryParams.append('sysparm_fields', 'sys_id,number,short_description,text,title,category,subcategory,author,published,view_count,helpful_count,sys_created_on,sys_updated_on,workflow_state,valid_to,active');
+      // Add fields to return with author display value
+      queryParams.append('sysparm_fields', 'sys_id,number,short_description,text,title,category,subcategory,author.name,author.sys_id,published,view_count,helpful_count,sys_created_on,sys_updated_on,workflow_state,valid_to,active');
+      queryParams.append('sysparm_display_value', 'author');
       
       // Build query conditions
       const queryConditions: string[] = [];
@@ -303,7 +304,8 @@ class RealServiceNowApiService {
   async getKnowledgeArticle(sysId: string): Promise<ApiResponse<ServiceNowKnowledgeArticle>> {
     try {
       const queryParams = new URLSearchParams();
-      queryParams.append('sysparm_fields', 'sys_id,number,short_description,text,title,category,subcategory,author,published,view_count,helpful_count,sys_created_on,sys_updated_on,workflow_state,valid_to,active');
+      queryParams.append('sysparm_fields', 'sys_id,number,short_description,text,title,category,subcategory,author.name,author.sys_id,published,view_count,helpful_count,sys_created_on,sys_updated_on,workflow_state,valid_to,active');
+      queryParams.append('sysparm_display_value', 'author');
       
       const endpoint = `/api/now/table/kb_knowledge/${sysId}?${queryParams.toString()}`;
       console.log('Knowledge Article API endpoint:', endpoint);
@@ -384,13 +386,22 @@ class RealServiceNowApiService {
   }
 
   private mapServiceNowCatalogItem(item: any): ServiceNowCatalogItem {
+    // Helper function to safely extract string values from ServiceNow reference fields
+    const extractStringValue = (field: any): string => {
+      if (typeof field === 'string') return field;
+      if (field && typeof field === 'object') {
+        return field.display_value || field.value || field.title || field.name || '';
+      }
+      return '';
+    };
+
     return {
       sys_id: item.sys_id,
       name: item.name,
       short_description: item.short_description || '',
       description: item.description || '',
-      category: item.category?.title || '',
-      subcategory: item.subcategory?.title || '',
+      category: extractStringValue(item.category),
+      subcategory: extractStringValue(item.subcategory),
       availability: item.availability === 'on_desktop' ? 'available' : 'unavailable',
       picture: item.picture || item.icon || '',
       price: 0, // ServiceNow doesn't always provide price in the same format
@@ -406,13 +417,34 @@ class RealServiceNowApiService {
   }
 
   private mapServiceNowKnowledgeArticle(article: any): ServiceNowKnowledgeArticle {
-    // Extract category and subcategory from display values or references
-    const category = article.category?.display_value || article.category?.value || article.category || 'General';
-    const subcategory = article.subcategory?.display_value || article.subcategory?.value || article.subcategory || 'General';
+    // Helper function to safely extract string values from ServiceNow reference fields
+    const extractStringValue = (field: any): string => {
+      if (typeof field === 'string') return field;
+      if (field && typeof field === 'object') {
+        return field.display_value || field.value || field.name || '';
+      }
+      return '';
+    };
+
+    // Extract category and subcategory safely
+    const category = extractStringValue(article.category) || 'General';
+    const subcategory = extractStringValue(article.subcategory) || 'General';
     
-    // Extract author information
-    const authorName = article.author?.display_value || article.author?.name || article.author || 'System';
-    const authorSysId = article.author?.value || article.author?.sys_id || '';
+    // Extract author information safely
+    let authorName = 'System';
+    let authorSysId = '';
+    
+    if (article.author) {
+      if (typeof article.author === 'string') {
+        // If author is just a string (sys_id), use it as both name and sys_id
+        authorName = article.author;
+        authorSysId = article.author;
+      } else if (typeof article.author === 'object') {
+        // If author is an object, extract display_value and value/sys_id
+        authorName = article.author.display_value || article.author.name || article.author.value || 'System';
+        authorSysId = article.author.value || article.author.sys_id || '';
+      }
+    }
     
     return {
       sys_id: article.sys_id || '',

@@ -150,7 +150,9 @@ const enTranslations = {
     "uploadFile": "Upload file",
     "dragAndDrop": "Drag and drop files here, or click to select",
     "fileSizeLimit": "File size limit: {{size}}MB",
-    "supportedFormats": "Supported formats: {{formats}}"
+    "supportedFormats": "Supported formats: {{formats}}",
+    "loadingForm": "Loading form...",
+    "searchService": "Search Service"
   },
   "requests": {
     "title": "My Requests",
@@ -179,6 +181,21 @@ const enTranslations = {
     "recentArticles": "Recent Articles",
     "noArticles": "No articles found",
     "noArticlesDescription": "Try adjusting your search criteria"
+  },
+  "knowledgeBase": {
+    "title": "Knowledge Base",
+    "subtitle": "Discover comprehensive answers and explore our curated collection of knowledge articles designed to help you succeed",
+    "searchPlaceholder": "Search knowledge articles, guides, and solutions...",
+    "loadingArticles": "Loading articles...",
+    "errorLoadingArticles": "Error Loading Articles",
+    "tryAgain": "Try Again",
+    "by": "By",
+    "helpful": "helpful",
+    "readArticle": "Read Article",
+    "noArticlesFound": "No Articles Found",
+    "noArticlesForSearch": "No articles found for \"{{query}}\". Try a different search term.",
+    "noArticlesAvailable": "No articles available at the moment.",
+    "clearSearch": "Clear Search"
   },
   "messages": {
     "requestSubmitted": "Request submitted successfully!",
@@ -385,7 +402,9 @@ const heTranslations = {
     "uploadFile": "העלה קובץ",
     "dragAndDrop": "גרור ושחרר קבצים כאן, או לחץ לבחירה",
     "fileSizeLimit": "גודל קובץ מקסימלי: {{size}}MB",
-    "supportedFormats": "פורמטים נתמכים: {{formats}}"
+    "supportedFormats": "פורמטים נתמכים: {{formats}}",
+    "loadingForm": "טוען טופס...",
+    "searchService": "חיפוש שירות"
   },
   "requests": {
     "title": "הבקשות שלי",
@@ -414,6 +433,21 @@ const heTranslations = {
     "recentArticles": "מאמרים אחרונים",
     "noArticles": "לא נמצאו מאמרים",
     "noArticlesDescription": "נסה לשנות את קריטריוני החיפוש"
+  },
+  "knowledgeBase": {
+    "title": "מאגר ידע",
+    "subtitle": "גלה תשובות מקיפות וחקור את האוסף המובחר שלנו של מאמרי ידע שנועדו לעזור לך להצליח",
+    "searchPlaceholder": "חיפוש מאמרי ידע, מדריכים ופתרונות...",
+    "loadingArticles": "טוען מאמרים...",
+    "errorLoadingArticles": "שגיאה בטעינת מאמרים",
+    "tryAgain": "נסה שוב",
+    "by": "מאת",
+    "helpful": "מועיל",
+    "readArticle": "קרא מאמר",
+    "noArticlesFound": "לא נמצאו מאמרים",
+    "noArticlesForSearch": "לא נמצאו מאמרים עבור \"{{query}}\". נסה מונח חיפוש אחר.",
+    "noArticlesAvailable": "אין מאמרים זמינים כרגע.",
+    "clearSearch": "נקה חיפוש"
   },
   "messages": {
     "requestSubmitted": "הבקשה נשלחה בהצלחה!",
@@ -620,7 +654,9 @@ const arTranslations = {
     "uploadFile": "رفع ملف",
     "dragAndDrop": "اسحب وأفلت الملفات هنا، أو انقر للاختيار",
     "fileSizeLimit": "حد حجم الملف: {{size}} ميجابايت",
-    "supportedFormats": "الصيغ المدعومة: {{formats}}"
+    "supportedFormats": "الصيغ المدعومة: {{formats}}",
+    "loadingForm": "جاري تحميل النموذج...",
+    "searchService": "البحث في الخدمة"
   },
   "requests": {
     "title": "طلباتي",
@@ -649,6 +685,21 @@ const arTranslations = {
     "recentArticles": "المقالات الحديثة",
     "noArticles": "لم يتم العثور على مقالات",
     "noArticlesDescription": "حاول تعديل معايير البحث"
+  },
+  "knowledgeBase": {
+    "title": "قاعدة المعرفة",
+    "subtitle": "اكتشف إجابات شاملة واستكشف مجموعتنا المختارة من مقالات المعرفة المصممة لمساعدتك على النجاح",
+    "searchPlaceholder": "البحث في مقالات المعرفة والأدلة والحلول...",
+    "loadingArticles": "جاري تحميل المقالات...",
+    "errorLoadingArticles": "خطأ في تحميل المقالات",
+    "tryAgain": "حاول مرة أخرى",
+    "by": "بواسطة",
+    "helpful": "مفيد",
+    "readArticle": "اقرأ المقال",
+    "noArticlesFound": "لم يتم العثور على مقالات",
+    "noArticlesForSearch": "لم يتم العثور على مقالات لـ \"{{query}}\". جرب مصطلح بحث مختلف.",
+    "noArticlesAvailable": "لا توجد مقالات متاحة في الوقت الحالي.",
+    "clearSearch": "مسح البحث"
   },
   "messages": {
     "requestSubmitted": "تم إرسال الطلب بنجاح!",
@@ -742,4 +793,17 @@ i18n
     },
   });
 
-export default i18n; 
+// Set document direction based on language
+i18n.on('languageChanged', (lng) => {
+  const isRTL = lng === 'he' || lng === 'ar';
+  document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
+  document.documentElement.lang = lng;
+});
+
+// Set initial direction
+const currentLang = i18n.language || 'en';
+const isRTL = currentLang === 'he' || currentLang === 'ar';
+document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
+document.documentElement.lang = currentLang;
+
+export default i18n;

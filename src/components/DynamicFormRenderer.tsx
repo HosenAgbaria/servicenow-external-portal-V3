@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
@@ -29,19 +29,38 @@ export const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({
   const { t } = useTranslation();
   const { theme } = useUIStore();
   const [formData, setFormData] = useState<FormData>({});
+
+  // Initialize form data with default values when fields change
+  useEffect(() => {
+    const initialData: FormData = {};
+    fields.forEach(field => {
+      if (field.defaultValue !== undefined && field.defaultValue !== null) {
+        initialData[field.name] = field.defaultValue;
+      }
+    });
+    setFormData(prev => ({ ...initialData, ...prev }));
+  }, [fields]);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
   const [toastType, setToastType] = useState<'success' | 'error' | 'info'>('info');
 
   const validateField = (field: FormField, value: any): string => {
-    if (field.required && (!value || value.toString().trim() === '')) {
+    // Check both required and mandatory properties for ServiceNow compatibility
+    const isRequired = field.required || field.mandatory;
+    
+    // Handle different value types more carefully
+    const isEmpty = value === undefined || value === null || 
+                   (typeof value === 'string' && value.trim() === '') ||
+                   (Array.isArray(value) && value.length === 0);
+    
+    if (isRequired && isEmpty) {
       return `${field.label} is required`;
     }
     
-    if (field.type === 'email' && value) {
+    if (field.type === 'email' && value && typeof value === 'string') {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(value)) {
+      if (!emailRegex.test(value.trim())) {
         return 'Please enter a valid email address';
       }
     }
@@ -61,14 +80,21 @@ export const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    console.log('Form submission started');
+    console.log('Current form data:', formData);
+    console.log('Fields to validate:', fields.map(f => ({ name: f.name, required: f.required, mandatory: f.mandatory })));
+    
     // Validate all fields
     const newErrors: Record<string, string> = {};
     fields.forEach(field => {
       const error = validateField(field, formData[field.name]);
       if (error) {
+        console.log(`Validation error for ${field.name}: ${error}`);
         newErrors[field.name] = error;
       }
     });
+    
+    console.log('Validation errors:', newErrors);
     
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -100,7 +126,7 @@ export const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({
               theme === 'dark' ? 'text-slate-200' : 'text-slate-700'
             }`}>
               {field.label}
-              {field.required && <span className="text-red-500 ml-1">*</span>}
+              {(field.required || field.mandatory) && <span className="text-red-500 ml-1">*</span>}
             </label>
             <Input
               type={field.type}
@@ -135,7 +161,7 @@ export const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({
               theme === 'dark' ? 'text-slate-200' : 'text-slate-700'
             }`}>
               {field.label}
-              {field.required && <span className="text-red-500 ml-1">*</span>}
+              {(field.required || field.mandatory) && <span className="text-red-500 ml-1">*</span>}
             </label>
             <Textarea
               value={fieldValue}
@@ -170,7 +196,7 @@ export const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({
               theme === 'dark' ? 'text-slate-200' : 'text-slate-700'
             }`}>
               {field.label}
-              {field.required && <span className="text-red-500 ml-1">*</span>}
+              {(field.required || field.mandatory) && <span className="text-red-500 ml-1">*</span>}
             </label>
             <select
               value={fieldValue}
@@ -214,7 +240,7 @@ export const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({
               theme === 'dark' ? 'text-slate-200' : 'text-slate-700'
             }`}>
               {field.label}
-              {field.required && <span className="text-red-500 ml-1">*</span>}
+              {(field.required || field.mandatory) && <span className="text-red-500 ml-1">*</span>}
             </label>
             <Input
               type="date"
@@ -307,4 +333,4 @@ export const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({
       )}
     </>
   );
-}; 
+};

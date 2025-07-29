@@ -4,13 +4,23 @@
 
 The 404 error indicates that GitHub Pages is not properly enabled for your repository. Follow these steps to fix it:
 
-## Step 1: Enable GitHub Pages
+## Step 1: Re-Enable GitHub Pages (Since it was enabled before)
 
 1. Go to your repository: `https://github.com/HosenAgbaria/servicenow-external-portal-V3`
 2. Click on **Settings** tab
 3. Scroll down to **Pages** section in the left sidebar
-4. Under **Source**, select **GitHub Actions**
+4. Check current **Source** setting:
+   - If it shows **GitHub Actions** ✅ - proceed to Step 2
+   - If it shows **Deploy from a branch** - change to **GitHub Actions**
+   - If it shows **None** - select **GitHub Actions**
 5. Save the settings
+
+## Alternative: Check if Pages was disabled
+
+1. In **Settings** > **Pages**
+2. If you see "GitHub Pages is currently disabled"
+3. Click **Enable GitHub Pages**
+4. Select **GitHub Actions** as source
 
 ## Step 2: Verify Workflow Permissions
 
@@ -48,10 +58,33 @@ If GitHub Actions option is not available:
 
 ## Troubleshooting
 
+### If GitHub Pages was working before but stopped:
+
+1. **Check Recent Workflow Runs**:
+   - Go to **Actions** tab
+   - Look for failed "Deploy to GitHub Pages" workflows
+   - Click on failed runs to see error details
+
+2. **Check Repository Settings Changes**:
+   - Someone might have changed Pages source from "GitHub Actions" to "Deploy from a branch"
+   - Repository might have been made private (Pages requires public repo or GitHub Pro)
+
+3. **Force Re-deployment**:
+   - Go to **Actions** > **Deploy to GitHub Pages**
+   - Click **Run workflow** > **Run workflow** on main branch
+   - Wait 3-5 minutes for completion
+
+4. **Check Environment Secrets**:
+   - Go to **Settings** > **Secrets and variables** > **Actions**
+   - Verify all VITE_SERVICENOW_* secrets are still present
+
+### Common Issues:
+
 - **404 Error**: GitHub Pages not enabled or wrong source selected
 - **Blank Page**: Check console for errors, verify base URL in vite.config.ts
 - **Build Fails**: Check Actions tab for error logs
 - **Assets Not Loading**: Verify the base path matches repository name
+- **Workflow Not Running**: Check if Actions are enabled in repository settings
 
 ## Current Configuration Status
 

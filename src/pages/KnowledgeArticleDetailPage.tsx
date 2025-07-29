@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { LoadingSpinner } from '../components/ui/loading-spinner';
-import { apiService } from '../services/api';
+import { apiService } from '../services/apiService';
 import type { ServiceNowKnowledgeArticle } from '../types';
 
 export const KnowledgeArticleDetailPage: React.FC = () => {
@@ -26,19 +26,17 @@ export const KnowledgeArticleDetailPage: React.FC = () => {
     setError(null);
 
     try {
-      // For now, we'll simulate getting a single article
-      // In real implementation, this would be a separate API call
-      const response = await apiService.getKnowledgeArticles({});
+      if (!articleId) {
+        setError('Article ID is required');
+        return;
+      }
+
+      const response = await apiService.getKnowledgeArticle(articleId);
       
       if (response.success && response.data) {
-        const foundArticle = response.data.data.find(a => a.sys_id === articleId);
-        if (foundArticle) {
-          setArticle(foundArticle);
-        } else {
-          setError('Article not found');
-        }
+        setArticle(response.data);
       } else {
-        setError(response.error || 'Failed to load article');
+        setError(response.message || 'Failed to load article');
       }
     } catch (err) {
       setError('An error occurred while loading the article');
@@ -278,4 +276,4 @@ export const KnowledgeArticleDetailPage: React.FC = () => {
       </div>
     </div>
   );
-}; 
+};

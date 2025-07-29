@@ -233,29 +233,99 @@ class RealServiceNowApiService {
   } = {}): Promise<ApiResponse<PaginatedResponse<ServiceNowKnowledgeArticle>>> {
     try {
       const queryParams = new URLSearchParams();
-      if (params.limit) queryParams.append('sysparm_limit', params.limit.toString());
-      if (params.offset) queryParams.append('sysparm_offset', params.offset.toString());
-      if (params.search) queryParams.append('sysparm_query', `titleLIKE${params.search}`);
-      if (params.category) queryParams.append('sysparm_query', `category=${params.category}`);
+      
+      // Set default limit if not provided
+      const limit = params.limit || 20;
+      const offset = params.offset || 0;
+      
+      queryParams.append('sysparm_limit', limit.toString());
+      queryParams.append('sysparm_offset', offset.toString());
+      
+      // Add fields to return
+      queryParams.append('sysparm_fields', 'sys_id,number,short_description,text,title,category,subcategory,author,published,view_count,helpful_count,sys_created_on,sys_updated_on,workflow_state,valid_to,active');
+      
+      // Build query conditions
+      const queryConditions: string[] = [];
+      
+      // Only get active and published articles
+      queryConditions.push('active=true');
+      queryConditions.push('workflow_state=published');
+      
+      // Add search condition if provided
+      if (params.search) {
+        const searchTerm = params.search.trim();
+        queryConditions.push(`titleLIKE${searchTerm}^ORshort_descriptionLIKE${searchTerm}^ORtextLIKE${searchTerm}`);
+      }
+      
+      // Add category filter if provided
+      if (params.category) {
+        queryConditions.push(`category=${params.category}`);
+      }
+      
+      if (queryConditions.length > 0) {
+        queryParams.append('sysparm_query', queryConditions.join('^'));
+      }
+      
+      // Order by most recent
+      queryParams.append('sysparm_order_by', 'sys_updated_on');
+      queryParams.append('sysparm_order_direction', 'desc');
 
-      const endpoint = `/api/sn_kmdl/knowledge?${queryParams.toString()}`;
+      const endpoint = `/api/now/table/kb_knowledge?${queryParams.toString()}`;
+      console.log('Knowledge API endpoint:', endpoint);
+      
       const response = await this.makeRequest<any>(endpoint);
+      console.log('Knowledge API response:', response);
+
+      if (!response.result) {
+        throw new Error('Invalid response format from ServiceNow API');
+      }
 
       return {
         success: true,
         data: {
           data: response.result.map((article: any) => this.mapServiceNowKnowledgeArticle(article)),
           count: response.result.length,
-          limit: params.limit || 10,
-          offset: params.offset || 0,
+          limit: limit,
+          offset: offset,
         },
         message: 'Knowledge articles retrieved successfully'
       };
     } catch (error) {
+      console.error('Error fetching knowledge articles:', error);
       return {
         success: false,
         data: { data: [], count: 0, limit: 10, offset: 0 },
         message: `Failed to retrieve knowledge articles: ${error instanceof Error ? error.message : 'Unknown error'}`
+      };
+    }
+  }
+
+  async getKnowledgeArticle(sysId: string): Promise<ApiResponse<ServiceNowKnowledgeArticle>> {
+    try {
+      const queryParams = new URLSearchParams();
+      queryParams.append('sysparm_fields', 'sys_id,number,short_description,text,title,category,subcategory,author,published,view_count,helpful_count,sys_created_on,sys_updated_on,workflow_state,valid_to,active');
+      
+      const endpoint = `/api/now/table/kb_knowledge/${sysId}?${queryParams.toString()}`;
+      console.log('Knowledge Article API endpoint:', endpoint);
+      
+      const response = await this.makeRequest<any>(endpoint);
+      console.log('Knowledge Article API response:', response);
+
+      if (!response.result) {
+        throw new Error('Article not found');
+      }
+
+      return {
+        success: true,
+        data: this.mapServiceNowKnowledgeArticle(response.result),
+        message: 'Knowledge article retrieved successfully'
+      };
+    } catch (error) {
+      console.error('Error fetching knowledge article:', error);
+      return {
+        success: false,
+        data: {} as ServiceNowKnowledgeArticle,
+        message: `Failed to retrieve knowledge article: ${error instanceof Error ? error.message : 'Unknown error'}`
       };
     }
   }
@@ -336,22 +406,30 @@ class RealServiceNowApiService {
   }
 
   private mapServiceNowKnowledgeArticle(article: any): ServiceNowKnowledgeArticle {
+    // Extract category and subcategory from display values or references
+    const category = article.category?.display_value || article.category?.value || article.category || 'General';
+    const subcategory = article.subcategory?.display_value || article.subcategory?.value || article.subcategory || 'General';
+    
+    // Extract author information
+    const authorName = article.author?.display_value || article.author?.name || article.author || 'System';
+    const authorSysId = article.author?.value || article.author?.sys_id || '';
+    
     return {
-      sys_id: article.sys_id,
-      title: article.title,
+      sys_id: article.sys_id || '',
+      title: article.title || article.short_description || 'Untitled Article',
       short_description: article.short_description || '',
-      description: article.description || '',
-      category: article.category?.title || '',
-      subcategory: article.subcategory?.title || '',
+      description: article.text || article.description || '',
+      category: category,
+      subcategory: subcategory,
       author: {
-        sys_id: article.author?.sys_id || '',
-        name: article.author?.name || '',
+        sys_id: authorSysId,
+        name: authorName,
       },
-      published_date: article.published_date || article.sys_created_on,
-      view_count: article.view_count || 0,
-      helpful_count: article.helpful_count || 0,
-      sys_created_on: article.sys_created_on,
-      sys_updated_on: article.sys_updated_on,
+      published_date: article.published || article.sys_created_on || new Date().toISOString(),
+      view_count: parseInt(article.view_count) || 0,
+      helpful_count: parseInt(article.helpful_count) || 0,
+      sys_created_on: article.sys_created_on || new Date().toISOString(),
+      sys_updated_on: article.sys_updated_on || new Date().toISOString(),
     };
   }
 

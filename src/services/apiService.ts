@@ -418,10 +418,28 @@ class MockApiService {
       success: true,
       data: {
         data: paginatedArticles,
-                  count: filteredArticles.length,
+        count: filteredArticles.length,
         limit,
         offset,
       },
+    };
+  }
+
+  async getKnowledgeArticle(sysId: string): Promise<ApiResponse<ServiceNowKnowledgeArticle>> {
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    const article = mockKnowledgeArticles.find(art => art.sys_id === sysId);
+    
+    if (!article) {
+      return {
+        success: false,
+        message: 'Knowledge article not found'
+      };
+    }
+
+    return {
+      success: true,
+      data: article
     };
   }
 
@@ -540,6 +558,10 @@ class ApiService {
     offset?: number;
   } = {}): Promise<ApiResponse<PaginatedResponse<ServiceNowKnowledgeArticle>>> {
     return this.getService().getKnowledgeArticles(params);
+  }
+
+  async getKnowledgeArticle(sysId: string): Promise<ApiResponse<ServiceNowKnowledgeArticle>> {
+    return this.getService().getKnowledgeArticle(sysId);
   }
 
   // User Requests API

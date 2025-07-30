@@ -17,6 +17,8 @@ A modern, dynamic React portal that renders ServiceNow catalog items and record 
 - **🔄 Conditional Fields**: Dynamic field visibility based on dependencies
 - **🔔 Toast Notifications**: User-friendly success/error notifications
 - **⏳ Loading States**: Professional loading spinners and progress indicators
+- **🌐 CORS Solution**: Server-side proxy for production deployment to handle CORS restrictions
+- **🔄 Demo Mode**: Graceful fallback with demo data when API is unavailable
 
 ## 🛠️ Tech Stack
 
@@ -70,6 +72,8 @@ src/
 
 - Node.js 18+ 
 - npm or yarn
+- ServiceNow instance with API access
+- Basic authentication credentials or OAuth setup
 
 ### Installation
 
@@ -84,12 +88,35 @@ cd servicenow-portal
 npm install
 ```
 
-3. Start the development server:
+3. Set up the server (Required for production):
+   
+   Due to CORS restrictions, you need a server-side proxy for production deployment:
+   
+   - Copy the `server-repo` folder to a new location
+   - Follow the deployment guide in `server-repo/DEPLOYMENT_GUIDE.md`
+   - Deploy the server to Heroku, Railway, or Vercel
+   - Get your server URL (e.g., `https://your-app.herokuapp.com`)
+
+4. Configure environment variables:
+```bash
+cp .env.example .env
+```
+
+Update `.env` with your server URL:
+```env
+# For local development with local server
+VITE_API_BASE_URL=http://localhost:3001
+
+# For production with deployed server
+# VITE_API_BASE_URL=https://your-app.herokuapp.com
+```
+
+5. Start the development server:
 ```bash
 npm run dev
 ```
 
-4. Open your browser and navigate to `http://localhost:5173`
+6. Open your browser and navigate to `http://localhost:5173`
 
 ## 🎨 Design System
 
@@ -243,7 +270,11 @@ npm run test:a11y
 
 ## 📦 Deployment
 
-### Quick Deploy to GitHub Pages
+### Frontend Deployment
+
+The application is configured for easy deployment to various platforms:
+
+#### Quick Deploy to GitHub Pages
 
 1. **Fork or clone this repository**
 2. **Set up environment variables** in GitHub repository settings:
@@ -259,6 +290,45 @@ npm run test:a11y
    - Go to Settings → Pages
    - Source: GitHub Actions
    - The workflow will automatically deploy on push to main
+
+#### Vercel
+```bash
+vercel --prod
+```
+
+#### Netlify
+```bash
+netlify deploy --prod --dir=dist
+```
+
+### Server Deployment (Required for Production)
+
+Due to CORS restrictions, you need to deploy the server-side proxy:
+
+1. **Copy server files**: Copy the `server-repo` folder to a new location
+2. **Create GitHub repository**: Create a new repository for the server
+3. **Deploy to hosting platform**: 
+   - **Heroku** (Recommended): Follow `server-repo/DEPLOYMENT_GUIDE.md`
+   - **Railway**: Connect GitHub repo and deploy
+   - **Vercel**: Import repository and deploy
+   - **Render**: Create web service from GitHub
+
+4. **Update frontend configuration**: Set `VITE_API_BASE_URL` to your server URL
+5. **Redeploy frontend**: Deploy frontend with updated configuration
+
+### CORS Solution
+
+This project includes a complete CORS solution:
+
+- **Problem**: ServiceNow APIs block direct browser requests due to CORS policy
+- **Solution**: Node.js/Express proxy server that handles ServiceNow API calls
+- **Benefits**: 
+  - Secure credential handling
+  - Rate limiting and security headers
+  - Error handling and logging
+  - Production-ready deployment
+
+See `PRODUCTION_DEPLOYMENT_GUIDE.md` and `server-repo/DEPLOYMENT_GUIDE.md` for detailed instructions.
 
 ### Local Production Build
 ```bash

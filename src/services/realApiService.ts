@@ -29,16 +29,13 @@ class RealServiceNowApiService {
   }
 
   private async makeRequest<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-    const url = `${this.config.baseUrl}${endpoint}`;
-    
-    const authHeader = this.config.useOAuth && this.accessToken 
-      ? `Bearer ${this.accessToken}`
-      : `Basic ${btoa(`${this.config.username}:${this.config.password}`)}`;
+    // Use proxy server instead of direct ServiceNow API calls
+    const proxyBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+    const url = `${proxyBaseUrl}${endpoint}`;
     
     const defaultHeaders = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
-      'Authorization': authHeader,
     };
 
     try {
@@ -52,15 +49,15 @@ class RealServiceNowApiService {
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error(`ServiceNow API Error: ${response.status} ${response.statusText}`, errorText);
+        console.error(`Proxy API Error: ${response.status} ${response.statusText}`, errorText);
         throw new Error(`API request failed: ${response.status} ${response.statusText}`);
       }
 
       return await response.json();
     } catch (error) {
       if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
-        console.error('CORS or network error - ServiceNow API may not be accessible from browser');
-        throw new Error('Unable to connect to ServiceNow. This may be due to CORS restrictions or network issues.');
+        console.error('Unable to connect to proxy server - make sure the server is running');
+        throw new Error('Unable to connect to the API server. Please ensure the server is running.');
       }
       throw error;
     }
@@ -74,12 +71,12 @@ class RealServiceNowApiService {
   } = {}): Promise<ApiResponse<PaginatedResponse<ServiceNowCatalogItem>>> {
     try {
       const queryParams = new URLSearchParams();
-      if (params.limit) queryParams.append('sysparm_limit', params.limit.toString());
-      if (params.offset) queryParams.append('sysparm_offset', params.offset.toString());
-      if (params.search) queryParams.append('sysparm_query', `nameLIKE${params.search}`);
-      if (params.category) queryParams.append('sysparm_query', `category=${params.category}`);
+      if (params.limit) queryParams.append('limit', params.limit.toString());
+      if (params.offset) queryParams.append('offset', params.offset.toString());
+      if (params.search) queryParams.append('search', params.search);
+      if (params.category) queryParams.append('category', params.category);
 
-      const endpoint = `/api/sn_sc/servicecatalog/items?${queryParams.toString()}`;
+      const endpoint = `/api/servicenow/catalog/items?${queryParams.toString()}`;
       const response = await this.makeRequest<any>(endpoint);
 
       return {
@@ -168,25 +165,16 @@ class RealServiceNowApiService {
       console.log('📝 Attempting to create real ServiceNow request...');
       console.log('📝 Generated Request Number:', requestNumber);
       
-      // Use the new backend endpoint to create real ServiceNow request
-      const createRequestResponse = await fetch('http://localhost:3001/api/servicenow/create-request', {
+      // Use the proxy endpoint to create real ServiceNow request
+      const endpoint = '/api/servicenow/requests/submit';
+      const createRequestResult = await this.makeRequest<any>(endpoint, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
         body: JSON.stringify({
           catalogItemId: itemId,
           formData: formData,
           requestNumber: requestNumber
         })
       });
-      
-      if (!createRequestResponse.ok) {
-        const errorText = await createRequestResponse.text();
-        throw new Error(`Failed to create ServiceNow request: ${createRequestResponse.status} ${createRequestResponse.statusText} - ${errorText}`);
-      }
-      
-      const createRequestResult = await createRequestResponse.json();
       
       if (createRequestResult.success) {
         console.log('✅ Successfully created real ServiceNow request!');
@@ -251,40 +239,12 @@ class RealServiceNowApiService {
       const limit = params.limit || 20;
       const offset = params.offset || 0;
       
-      queryParams.append('sysparm_limit', limit.toString());
-      queryParams.append('sysparm_offset', offset.toString());
-      
-      // Add fields to return with author display value
-      queryParams.append('sysparm_fields', 'sys_id,number,short_description,text,title,category,subcategory,author.name,author.sys_id,published,view_count,helpful_count,sys_created_on,sys_updated_on,workflow_state,valid_to,active');
-      queryParams.append('sysparm_display_value', 'author');
-      
-      // Build query conditions
-      const queryConditions: string[] = [];
-      
-      // Only get active and published articles
-      queryConditions.push('active=true');
-      queryConditions.push('workflow_state=published');
-      
-      // Add search condition if provided
-      if (params.search) {
-        const searchTerm = params.search.trim();
-        queryConditions.push(`titleLIKE${searchTerm}^ORshort_descriptionLIKE${searchTerm}^ORtextLIKE${searchTerm}`);
-      }
-      
-      // Add category filter if provided
-      if (params.category) {
-        queryConditions.push(`category=${params.category}`);
-      }
-      
-      if (queryConditions.length > 0) {
-        queryParams.append('sysparm_query', queryConditions.join('^'));
-      }
-      
-      // Order by most recent
-      queryParams.append('sysparm_order_by', 'sys_updated_on');
-      queryParams.append('sysparm_order_direction', 'desc');
+      if (params.search) queryParams.append('search', params.search);
+      if (params.category) queryParams.append('category', params.category);
+      queryParams.append('limit', limit.toString());
+      queryParams.append('offset', offset.toString());
 
-      const endpoint = `/api/now/table/kb_knowledge?${queryParams.toString()}`;
+      const endpoint = `/api/servicenow/knowledge/articles?${queryParams.toString()}`;
       console.log('Knowledge API endpoint:', endpoint);
       
       const response = await this.makeRequest<any>(endpoint);
@@ -351,10 +311,10 @@ class RealServiceNowApiService {
   } = {}): Promise<ApiResponse<PaginatedResponse<ServiceNowRequest>>> {
     try {
       const queryParams = new URLSearchParams();
-      if (params.limit) queryParams.append('sysparm_limit', params.limit.toString());
-      if (params.offset) queryParams.append('sysparm_offset', params.offset.toString());
+      if (params.limit) queryParams.append('limit', params.limit.toString());
+      if (params.offset) queryParams.append('offset', params.offset.toString());
 
-      const endpoint = `/api/sn_sc/request?${queryParams.toString()}`;
+      const endpoint = `/api/servicenow/requests?${queryParams.toString()}`;
       const response = await this.makeRequest<any>(endpoint);
 
       return {

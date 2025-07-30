@@ -24,18 +24,21 @@ class RealServiceNowApiService {
   private config: ServiceNowConfig;
   private accessToken: string | null = null;
   private tokenExpiry: number | null = null;
-  private proxyBaseUrl = 'http://localhost:3001/api/servicenow';
-
   constructor(config: ServiceNowConfig) {
     this.config = config;
   }
 
   private async makeRequest<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
-    const url = `${this.proxyBaseUrl}${endpoint}`;
+    const url = `${this.config.baseUrl}${endpoint}`;
+    
+    const authHeader = this.config.useOAuth && this.accessToken 
+      ? `Bearer ${this.accessToken}`
+      : `Basic ${btoa(`${this.config.username}:${this.config.password}`)}`;
     
     const defaultHeaders = {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
+      'Authorization': authHeader,
     };
 
     const response = await fetch(url, {
@@ -576,11 +579,11 @@ class RealServiceNowApiService {
 
 // Export singleton instance
 export const getRealApiService = () => new RealServiceNowApiService({
-  baseUrl: 'https://tanivdynamicsltddemo4.service-now.com',
-  username: 'ext.portal.v2',
-  password: '*]<D7sP^KX+zW1Nn.VJ6P,(w=-$5QJ',
-  clientId: '1fcct8c927c54abbeb2ba990f6149043',
-  clientSecret: 'Jfjwy4o$eg',
+  baseUrl: import.meta.env.VITE_SERVICENOW_BASE_URL || 'https://tanivdynamicsltddemo4.service-now.com',
+  username: import.meta.env.VITE_SERVICENOW_USERNAME || 'ext.portal.v2',
+  password: import.meta.env.VITE_SERVICENOW_PASSWORD || '*]<D7sP^KX+zW1Nn.VJ6P,(w=-$5QJ',
+  clientId: import.meta.env.VITE_SERVICENOW_CLIENT_ID || '1fcct8c927c54abbeb2ba990f6149043',
+  clientSecret: import.meta.env.VITE_SERVICENOW_CLIENT_SECRET || 'Jfjwy4o$eg',
   useOAuth: false, // Using Basic Auth since it works
 });
 

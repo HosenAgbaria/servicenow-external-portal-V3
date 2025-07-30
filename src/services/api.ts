@@ -417,7 +417,28 @@ const mockKnowledgeArticles: ServiceNowKnowledgeArticle[] = [
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 class ApiService {
-  private baseUrl = '/api';
+  private realApiService: any;
+  private useRealApi: boolean;
+
+  constructor() {
+    // Use real API in production or when environment variables are set
+    this.useRealApi = import.meta.env.PROD || !!import.meta.env.VITE_SERVICENOW_BASE_URL;
+    
+    if (this.useRealApi) {
+      // Dynamically import and initialize real API service
+      this.initializeRealApiService();
+    }
+  }
+
+  private async initializeRealApiService() {
+    try {
+      const { getRealApiService } = await import('./realApiService');
+      this.realApiService = getRealApiService();
+    } catch (error) {
+      console.warn('Failed to initialize real API service, falling back to mock data:', error);
+      this.useRealApi = false;
+    }
+  }
 
   // ServiceNow field type to FormField type mapping
   private mapServiceNowFieldType(serviceNowType: string): FormField['type'] {
@@ -486,6 +507,19 @@ class ApiService {
     availability?: string;
     rating?: number;
   }): Promise<ApiResponse<PaginatedResponse<ServiceNowCatalogItem>>> {
+    if (this.useRealApi && this.realApiService) {
+      try {
+        return await this.realApiService.getCatalogItems({
+          search: params?.search,
+          category: params?.category,
+          limit: params?.limit || 10,
+          offset: params?.page ? (params.page - 1) * (params.limit || 10) : 0
+        });
+      } catch (error) {
+        console.error('Real API failed, falling back to mock data:', error);
+      }
+    }
+
     await delay(500);
 
     let filteredItems = [...mockCatalogItems];
@@ -680,6 +714,19 @@ class ApiService {
     search?: string;
     category?: string;
   }): Promise<ApiResponse<PaginatedResponse<ServiceNowKnowledgeArticle>>> {
+    if (this.useRealApi && this.realApiService) {
+      try {
+        return await this.realApiService.getKnowledgeArticles({
+          search: params?.search,
+          category: params?.category,
+          limit: params?.limit || 10,
+          offset: params?.page ? (params.page - 1) * (params.limit || 10) : 0
+        });
+      } catch (error) {
+        console.error('Real API failed, falling back to mock data:', error);
+      }
+    }
+
     await delay(400);
 
     let filteredArticles = [...mockKnowledgeArticles];

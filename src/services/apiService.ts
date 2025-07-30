@@ -484,6 +484,22 @@ class MockApiService {
       data: mockData[tableName] || [],
     };
   }
+
+  async getCatalogCategories(): Promise<ApiResponse<any[]>> {
+    await new Promise(resolve => setTimeout(resolve, 300));
+
+    // Mock catalog categories
+    const mockCategories = [
+      { sys_id: 'cat1', title: 'Software', description: 'Software related requests' },
+      { sys_id: 'cat2', title: 'Hardware', description: 'Hardware related requests' },
+      { sys_id: 'cat3', title: 'Access', description: 'Access and permissions requests' }
+    ];
+
+    return {
+      success: true,
+      data: mockCategories,
+    };
+  }
 }
 
 // Service switcher
@@ -575,6 +591,10 @@ class ApiService {
   // Reference Data API
   async getReferenceData(tableName: string, query?: string): Promise<ApiResponse<any[]>> {
     return this.getService().getReferenceData(tableName, query);
+  }
+
+  async getCatalogCategories(): Promise<ApiResponse<any[]>> {
+    return this.getService().getCatalogCategories();
   }
 }
 

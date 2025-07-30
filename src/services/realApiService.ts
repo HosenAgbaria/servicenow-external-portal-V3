@@ -98,6 +98,29 @@ class RealServiceNowApiService {
     }
   }
 
+  async getCatalogCategories(): Promise<ApiResponse<{ sys_id: string; title: string; description?: string }[]>> {
+    try {
+      const endpoint = '/api/servicenow/catalog/categories';
+      const response = await this.makeRequest<any>(endpoint);
+
+      return {
+        success: true,
+        data: response.result.map((category: any) => ({
+          sys_id: category.sys_id,
+          title: category.title,
+          description: category.description
+        })),
+        message: 'Catalog categories retrieved successfully'
+      };
+    } catch (error) {
+      return {
+        success: false,
+        data: [],
+        message: `Failed to retrieve catalog categories: ${error instanceof Error ? error.message : 'Unknown error'}`
+      };
+    }
+  }
+
   async getCatalogItemDetails(itemId: string): Promise<ApiResponse<ServiceNowCatalogItem>> {
     try {
       const endpoint = `/api/sn_sc/servicecatalog/items/${itemId}`;

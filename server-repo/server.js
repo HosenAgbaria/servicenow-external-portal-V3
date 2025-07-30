@@ -99,7 +99,8 @@ app.get('/api/servicenow/catalog/items', async (req, res) => {
       query += `^category=${category}`;
     }
     
-    const endpoint = `/api/now/table/sc_cat_item?sysparm_query=${encodeURIComponent(query)}&sysparm_limit=${limit}&sysparm_offset=${offset}&sysparm_fields=sys_id,name,short_description,description,price,picture,category,order`;
+    // Use sysparm_display_value=true to get display values for reference fields like category
+    const endpoint = `/api/now/table/sc_cat_item?sysparm_query=${encodeURIComponent(query)}&sysparm_limit=${limit}&sysparm_offset=${offset}&sysparm_fields=sys_id,name,short_description,description,price,picture,category,order&sysparm_display_value=true`;
     
     const data = await makeServiceNowRequest(endpoint);
     res.json(data);
@@ -113,13 +114,28 @@ app.get('/api/servicenow/catalog/items', async (req, res) => {
 app.get('/api/servicenow/catalog/items/:itemId', async (req, res) => {
   try {
     const { itemId } = req.params;
-    const endpoint = `/api/now/table/sc_cat_item/${itemId}`;
+    // Use sysparm_display_value=true to get display values for reference fields
+    const endpoint = `/api/now/table/sc_cat_item/${itemId}?sysparm_display_value=true`;
     
     const data = await makeServiceNowRequest(endpoint);
     res.json(data);
   } catch (error) {
     console.error('Error fetching catalog item details:', error);
     res.status(500).json({ error: 'Failed to fetch catalog item details', message: error.message });
+  }
+});
+
+// Get catalog categories
+app.get('/api/servicenow/catalog/categories', async (req, res) => {
+  try {
+    // Fetch all active catalog categories with display values
+    const endpoint = `/api/now/table/sc_category?sysparm_query=active=true&sysparm_fields=sys_id,title,description&sysparm_display_value=true&sysparm_limit=100`;
+    
+    const data = await makeServiceNowRequest(endpoint);
+    res.json(data);
+  } catch (error) {
+    console.error('Error fetching catalog categories:', error);
+    res.status(500).json({ error: 'Failed to fetch catalog categories', message: error.message });
   }
 });
 

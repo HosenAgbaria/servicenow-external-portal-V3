@@ -516,7 +516,11 @@ class ApiService {
           offset: params?.page ? (params.page - 1) * (params.limit || 10) : 0
         });
       } catch (error) {
-        console.error('Real API failed, falling back to mock data:', error);
+        console.warn('ServiceNow API not accessible, using demo data:', error);
+        // Show user-friendly message about demo mode
+        if (error.message?.includes('CORS') || error.message?.includes('Failed to fetch')) {
+          console.info('📋 Running in demo mode - ServiceNow API requires server-side proxy for production use');
+        }
       }
     }
 
@@ -723,7 +727,11 @@ class ApiService {
           offset: params?.page ? (params.page - 1) * (params.limit || 10) : 0
         });
       } catch (error) {
-        console.error('Real API failed, falling back to mock data:', error);
+        console.warn('ServiceNow API not accessible, using demo data:', error);
+        // Show user-friendly message about demo mode
+        if (error.message?.includes('CORS') || error.message?.includes('Failed to fetch')) {
+          console.info('📚 Running in demo mode - ServiceNow API requires server-side proxy for production use');
+        }
       }
     }
 

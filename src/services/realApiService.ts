@@ -41,19 +41,29 @@ class RealServiceNowApiService {
       'Authorization': authHeader,
     };
 
-    const response = await fetch(url, {
-      ...options,
-      headers: {
-        ...defaultHeaders,
-        ...options.headers,
-      },
-    });
+    try {
+      const response = await fetch(url, {
+        ...options,
+        headers: {
+          ...defaultHeaders,
+          ...options.headers,
+        },
+      });
 
-    if (!response.ok) {
-      throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error(`ServiceNow API Error: ${response.status} ${response.statusText}`, errorText);
+        throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+      }
+
+      return await response.json();
+    } catch (error) {
+      if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+        console.error('CORS or network error - ServiceNow API may not be accessible from browser');
+        throw new Error('Unable to connect to ServiceNow. This may be due to CORS restrictions or network issues.');
+      }
+      throw error;
     }
-
-    return response.json();
   }
 
   async getCatalogItems(params: {

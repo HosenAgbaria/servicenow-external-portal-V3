@@ -9,11 +9,13 @@ import { RequestDetailsPage } from './pages/RequestDetailsPage';
 import { KnowledgeBasePage } from './pages/KnowledgeBasePage';
 import { KnowledgeArticleDetailPage } from './pages/KnowledgeArticleDetailPage';
 import { StoredRequestsPage } from './pages/StoredRequestsPage';
+import { DemoModeNotification, useDemoModeNotification } from './components/DemoModeNotification';
 import { useUIStore } from './stores/uiStore';
 import './i18n'; // Initialize i18n
 
 function App() {
   const { theme } = useUIStore();
+  const { showNotification, dismissNotification } = useDemoModeNotification();
 
   useEffect(() => {
     // Apply theme to document
@@ -42,6 +44,10 @@ function App() {
           </Routes>
         </main>
       </div>
+      <DemoModeNotification 
+        show={showNotification} 
+        onDismiss={dismissNotification} 
+      />
     </Router>
   );
 }

@@ -2,7 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
-
+import './i18n'
+import './services/apiTest' // Import API test for debugging
 console.log('🚀 Starting React application...');
 
 try {

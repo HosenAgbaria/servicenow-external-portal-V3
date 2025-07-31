@@ -41,7 +41,7 @@ export const testServiceNowConnection = async () => {
       // Test catalog items endpoint
       console.log('📋 Testing catalog items endpoint...');
       
-      const catalogResponse = await fetch(`${config.baseUrl}/api/sn_sc/servicecatalog/items?sysparm_limit=5`, {
+      const catalogResponse = await fetch('/api/servicenow/api/sn_sc/servicecatalog/items?sysparm_limit=5', {
         headers: {
           'Authorization': `Bearer ${oauthData.access_token}`,
           'Content-Type': 'application/json',
@@ -71,7 +71,7 @@ export const testServiceNowConnection = async () => {
       // Test knowledge base endpoint
       console.log('📚 Testing knowledge base endpoint...');
       
-      const kbResponse = await fetch(`${config.baseUrl}/api/sn_kmd/knowledge?sysparm_limit=3`, {
+      const kbResponse = await fetch('/api/servicenow/api/sn_kmd/knowledge?sysparm_limit=3', {
         headers: {
           'Authorization': `Bearer ${oauthData.access_token}`,
           'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ export const testServiceNowConnection = async () => {
       console.log('🔐 Testing Basic authentication...');
       
       const credentials = btoa(`${config.username}:${config.password}`);
-      const response = await fetch(`${config.baseUrl}/api/sn_sc/servicecatalog/items?sysparm_limit=5`, {
+      const response = await fetch('/api/servicenow/api/sn_sc/servicecatalog/items?sysparm_limit=5', {
         headers: {
           'Authorization': `Basic ${credentials}`,
           'Content-Type': 'application/json',
@@ -137,4 +137,4 @@ export const testServiceNowConnection = async () => {
 // Export for use in browser console
 if (typeof window !== 'undefined') {
   (window as any).testServiceNowConnection = testServiceNowConnection;
-} 
+}

@@ -52,6 +52,6 @@ try {
   // Try to show error in DOM
   const rootElement = document.getElementById('root');
   if (rootElement) {
-    rootElement.innerHTML = `<div style="padding: 20px; color: red; font-family: monospace;"><h2>Application Error</h2><p>${error.message}</p><pre>${error.stack}</pre></div>`;
+    rootElement.innerHTML = `<div style="padding: 20px; color: red; font-family: monospace;"><h2>Application Error</h2><p>${error instanceof Error ? error.message : 'Unknown error'}</p><pre>${error instanceof Error ? error.stack : 'No stack trace available'}</pre></div>`;
   }
 }

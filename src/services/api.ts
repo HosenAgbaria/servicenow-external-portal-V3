@@ -419,6 +419,7 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 class ApiService {
   private realApiService: any;
   private useRealApi: boolean;
+  private baseUrl: string = '/api/servicenow';
 
   constructor() {
     // Use real API in production or when environment variables are set
@@ -518,7 +519,7 @@ class ApiService {
       } catch (error) {
         console.warn('ServiceNow API not accessible, using demo data:', error);
         // Show user-friendly message about demo mode
-        if (error.message?.includes('CORS') || error.message?.includes('Failed to fetch')) {
+        if (error instanceof Error && (error.message?.includes('CORS') || error.message?.includes('Failed to fetch'))) {
           console.info('📋 Running in demo mode - ServiceNow API requires server-side proxy for production use');
         }
       }
@@ -729,7 +730,7 @@ class ApiService {
       } catch (error) {
         console.warn('ServiceNow API not accessible, using demo data:', error);
         // Show user-friendly message about demo mode
-        if (error.message?.includes('CORS') || error.message?.includes('Failed to fetch')) {
+        if (error instanceof Error && (error.message?.includes('CORS') || error.message?.includes('Failed to fetch'))) {
           console.info('📚 Running in demo mode - ServiceNow API requires server-side proxy for production use');
         }
       }

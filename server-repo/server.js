@@ -87,7 +87,7 @@ app.get('/health', (req, res) => {
 // ServiceNow API proxy endpoints
 
 // Get catalog items
-app.get('/api/servicenow/catalog/items', async (req, res) => {
+app.get('/api/servicenow/api/sn_sc/servicecatalog/items', async (req, res) => {
   try {
     const { search, category, limit = 10, offset = 0 } = req.query;
     
@@ -99,8 +99,8 @@ app.get('/api/servicenow/catalog/items', async (req, res) => {
       query += `^category=${category}`;
     }
     
-    // Use sysparm_display_value=true to get display values for reference fields like category
-    const endpoint = `/api/now/table/sc_cat_item?sysparm_query=${encodeURIComponent(query)}&sysparm_limit=${limit}&sysparm_offset=${offset}&sysparm_fields=sys_id,name,short_description,description,price,picture,category,order&sysparm_display_value=true`;
+    // Use the ServiceNow Service Catalog API
+    const endpoint = `/api/sn_sc/servicecatalog/items?sysparm_query=${encodeURIComponent(query)}&sysparm_limit=${limit}&sysparm_offset=${offset}`;
     
     const data = await makeServiceNowRequest(endpoint);
     res.json(data);
@@ -111,11 +111,11 @@ app.get('/api/servicenow/catalog/items', async (req, res) => {
 });
 
 // Get catalog item details
-app.get('/api/servicenow/catalog/items/:itemId', async (req, res) => {
+app.get('/api/servicenow/api/sn_sc/servicecatalog/items/:itemId', async (req, res) => {
   try {
     const { itemId } = req.params;
-    // Use sysparm_display_value=true to get display values for reference fields
-    const endpoint = `/api/now/table/sc_cat_item/${itemId}?sysparm_display_value=true`;
+    // Use the ServiceNow Service Catalog API
+    const endpoint = `/api/sn_sc/servicecatalog/items/${itemId}`;
     
     const data = await makeServiceNowRequest(endpoint);
     res.json(data);
@@ -126,7 +126,7 @@ app.get('/api/servicenow/catalog/items/:itemId', async (req, res) => {
 });
 
 // Get catalog item form (ServiceNow Service Catalog API)
-app.get('/api/sn_sc/servicecatalog/items/:itemId', async (req, res) => {
+app.get('/api/servicenow/api/sn_sc/servicecatalog/items/:itemId/form', async (req, res) => {
   try {
     const { itemId } = req.params;
     // Use the ServiceNow Service Catalog API to get item with variables

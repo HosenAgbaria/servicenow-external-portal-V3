@@ -129,6 +129,7 @@ export interface FormField {
   required?: boolean;
   placeholder?: string;
   helpText?: string;
+  defaultValue?: any;
   choices?: Array<{
     value: string;
     label: string;

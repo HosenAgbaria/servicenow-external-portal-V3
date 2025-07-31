@@ -24,13 +24,15 @@ class RealServiceNowApiService {
   private config: ServiceNowConfig;
   private accessToken: string | null = null;
   private tokenExpiry: number | null = null;
+  private baseUrl: string;
   constructor(config: ServiceNowConfig) {
     this.config = config;
+    this.baseUrl = config.baseUrl;
   }
 
   private async makeRequest<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
     // Use proxy server instead of direct ServiceNow API calls
-    const proxyBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+    const proxyBaseUrl = 'https://servicenow-external-portal-server.onrender.com';
     const url = `${proxyBaseUrl}${endpoint}`;
     
     const defaultHeaders = {
@@ -55,7 +57,7 @@ class RealServiceNowApiService {
 
       return await response.json();
     } catch (error) {
-      if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+      if (error instanceof Error && error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
         console.error('Unable to connect to proxy server - make sure the server is running');
         throw new Error('Unable to connect to the API server. Please ensure the server is running.');
       }
@@ -76,7 +78,7 @@ class RealServiceNowApiService {
       if (params.search) queryParams.append('search', params.search);
       if (params.category) queryParams.append('category', params.category);
 
-      const endpoint = `/api/servicenow/catalog/items?${queryParams.toString()}`;
+      const endpoint = `/api/servicenow/api/sn_sc/servicecatalog/items?${queryParams.toString()}`;
       const response = await this.makeRequest<any>(endpoint);
 
       return {
@@ -123,7 +125,7 @@ class RealServiceNowApiService {
 
   async getCatalogItemDetails(itemId: string): Promise<ApiResponse<ServiceNowCatalogItem>> {
     try {
-      const endpoint = `/api/sn_sc/servicecatalog/items/${itemId}`;
+      const endpoint = `/api/servicenow/api/sn_sc/servicecatalog/items/${itemId}`;
       const response = await this.makeRequest<any>(endpoint);
 
       return {
@@ -143,7 +145,7 @@ class RealServiceNowApiService {
   async getCatalogItemForm(itemId: string): Promise<ApiResponse<{ fields: FormField[] }>> {
     try {
       // Since the separate form endpoint returns 400, we'll get the form fields from the item details
-      const endpoint = `/api/sn_sc/servicecatalog/items/${itemId}`;
+      const endpoint = `/api/servicenow/api/sn_sc/servicecatalog/items/${itemId}`;
       const response = await this.makeRequest<any>(endpoint);
 
       // Extract form fields from the variables array in the item details
@@ -172,7 +174,7 @@ class RealServiceNowApiService {
       console.log('📤 Form data:', formData);
       
       // Get the catalog item details first
-      const itemResponse = await this.makeRequest<any>(`/api/sn_sc/servicecatalog/items/${itemId}`);
+      const itemResponse = await this.makeRequest<any>(`/api/servicenow/api/sn_sc/servicecatalog/items/${itemId}`);
       if (!itemResponse.result) {
         throw new Error('Failed to get catalog item details');
       }

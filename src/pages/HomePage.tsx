@@ -182,7 +182,8 @@ export const HomePage: React.FC = () => {
 
   const testServiceNowConnection = async () => {
     try {
-      const response = await fetch('http://localhost:3001/health');
+      const proxyBaseUrl = import.meta.env.VITE_API_BASE_URL || 'https://servicenow-external-portal-server.onrender.com';
+      const response = await fetch(`${proxyBaseUrl}/health`);
       if (response.ok) {
         alert('✅ ServiceNow API connection is working!');
       } else {

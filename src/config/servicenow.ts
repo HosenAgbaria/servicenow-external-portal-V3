@@ -21,10 +21,10 @@ export const serviceNowConfig: ServiceNowConfig = {
 // API Endpoints configuration
 export const serviceNowEndpoints = {
   // Catalog Items
-  catalogItems: '/api/sn_sc/servicecatalog/items',
-  catalogItemDetails: (id: string) => `/api/sn_sc/servicecatalog/items/${id}`,
-  catalogItemForm: (id: string) => `/api/sn_sc/servicecatalog/items/${id}/form`,
-  submitCatalogRequest: (id: string) => `/api/sn_sc/servicecatalog/items/${id}/order`,
+  catalogItems: '/api/servicenow/api/sn_sc/servicecatalog/items',
+  catalogItemDetails: (id: string) => `/api/servicenow/api/sn_sc/servicecatalog/items/${id}`,
+  catalogItemForm: (id: string) => `/api/servicenow/api/sn_sc/servicecatalog/items/${id}`,
+  submitCatalogRequest: (id: string) => `/api/servicenow/api/sn_sc/servicecatalog/items/${id}/order`,
   
   // Knowledge Base
   knowledgeArticles: '/api/sn_kmd/knowledge',
@@ -114,4 +114,4 @@ export const isProduction = process.env.NODE_ENV === 'production';
 export const loggingConfig = {
   enabled: isDevelopment || process.env.REACT_APP_ENABLE_LOGGING === 'true',
   level: process.env.REACT_APP_LOG_LEVEL || 'info',
-}; 
+};

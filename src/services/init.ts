@@ -34,10 +34,10 @@ export const getServiceNowConfig = (): ServiceNowConfig => {
 
 export const serviceNowEndpoints = {
   oauth: '/oauth_token.do',
-  catalogItems: '/api/sn_sc/servicecatalog/items',
-  catalogItemDetails: '/api/sn_sc/servicecatalog/items',
-  catalogItemForm: '/api/sn_sc/servicecatalog/items',
-  submitRequest: '/api/sn_sc/servicecatalog/items',
+  catalogItems: '/api/servicenow/api/sn_sc/servicecatalog/items',
+    catalogItemDetails: '/api/servicenow/api/sn_sc/servicecatalog/items',
+    catalogItemForm: '/api/servicenow/api/sn_sc/servicecatalog/items',
+  submitRequest: '/api/servicenow/api/sn_sc/servicecatalog/items',
   knowledgeArticles: '/api/sn_kmdl/knowledge',
   userRequests: '/api/sn_sc/request',
   referenceData: '/api/now/table',

@@ -32,7 +32,7 @@ class RealServiceNowApiService {
 
   private async makeRequest<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
     // Use proxy server instead of direct ServiceNow API calls
-    const proxyBaseUrl = 'https://servicenow-external-portal-server.onrender.com';
+    const proxyBaseUrl = import.meta.env.VITE_API_BASE_URL || 'https://servicenow-external-portal-server.onrender.com';
     const url = `${proxyBaseUrl}${endpoint}`;
     
     const defaultHeaders = {

@@ -30,17 +30,26 @@ function detectServiceType(): ApiServiceType {
     return ApiServiceType.MOCK;
   }
   
+  // Check if we have API base URL configured (highest priority)
+  const hasApiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+  
+  // If API base URL is configured, use REAL service regardless of environment
+  if (hasApiBaseUrl) {
+    console.log('🔄 API Base URL configured: Using REAL service with', import.meta.env.VITE_API_BASE_URL);
+    return ApiServiceType.REAL;
+  }
+  
   // Check if we're in GitHub Pages environment
   const isGitHubPages = window.location.hostname.includes('github.io');
   
-  // Check if required environment variables are missing
+  // Check if required ServiceNow environment variables are available
   const hasRequiredEnvVars = import.meta.env.VITE_SERVICENOW_BASE_URL && 
                             import.meta.env.VITE_SERVICENOW_USERNAME && 
                             import.meta.env.VITE_SERVICENOW_PASSWORD;
   
-  // Use MOCK if in GitHub Pages or missing required env vars
+  // Use MOCK if in GitHub Pages without API base URL or missing required env vars
   if (isGitHubPages || !hasRequiredEnvVars) {
-    console.log('🔄 Auto-detected environment: Using MOCK service (GitHub Pages or missing env vars)');
+    console.log('🔄 Auto-detected environment: Using MOCK service (GitHub Pages without API base URL or missing env vars)');
     return ApiServiceType.MOCK;
   }
   

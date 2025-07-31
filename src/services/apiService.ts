@@ -19,8 +19,28 @@ export enum ApiServiceType {
   REAL = 'real'
 }
 
-// Global service type setting
-let currentServiceType: ApiServiceType = ApiServiceType.REAL;
+// Global service type setting - automatically detect environment
+let currentServiceType: ApiServiceType = detectServiceType();
+
+// Function to detect which service type to use
+function detectServiceType(): ApiServiceType {
+  // Check if we're in GitHub Pages environment
+  const isGitHubPages = window.location.hostname.includes('github.io');
+  
+  // Check if required environment variables are missing
+  const hasRequiredEnvVars = import.meta.env.VITE_SERVICENOW_BASE_URL && 
+                            import.meta.env.VITE_SERVICENOW_USERNAME && 
+                            import.meta.env.VITE_SERVICENOW_PASSWORD;
+  
+  // Use MOCK if in GitHub Pages or missing required env vars
+  if (isGitHubPages || !hasRequiredEnvVars) {
+    console.log('🔄 Auto-detected environment: Using MOCK service');
+    return ApiServiceType.MOCK;
+  }
+  
+  console.log('🔄 Auto-detected environment: Using REAL service');
+  return ApiServiceType.REAL;
+}
 
 // Mock data (existing implementation)
 const mockCatalogItems: ServiceNowCatalogItem[] = [

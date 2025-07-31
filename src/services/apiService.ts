@@ -19,11 +19,17 @@ export enum ApiServiceType {
   REAL = 'real'
 }
 
-// Global service type setting - automatically detect environment
-let currentServiceType: ApiServiceType = detectServiceType();
+// Global service type setting - will be detected dynamically
+let currentServiceType: ApiServiceType | null = null;
 
 // Function to detect which service type to use
 function detectServiceType(): ApiServiceType {
+  // Check if we're in a browser environment
+  if (typeof window === 'undefined') {
+    console.log('🔄 Server-side environment detected: Using MOCK service');
+    return ApiServiceType.MOCK;
+  }
+  
   // Check if we're in GitHub Pages environment
   const isGitHubPages = window.location.hostname.includes('github.io');
   
@@ -34,7 +40,7 @@ function detectServiceType(): ApiServiceType {
   
   // Use MOCK if in GitHub Pages or missing required env vars
   if (isGitHubPages || !hasRequiredEnvVars) {
-    console.log('🔄 Auto-detected environment: Using MOCK service');
+    console.log('🔄 Auto-detected environment: Using MOCK service (GitHub Pages or missing env vars)');
     return ApiServiceType.MOCK;
   }
   
@@ -525,10 +531,13 @@ class MockApiService {
 // Service switcher
 export const setApiServiceType = (type: ApiServiceType): void => {
   currentServiceType = type;
-  console.log(`API Service switched to: ${type}`);
+  console.log(`🔧 API service type manually set to: ${type}`);
 };
 
 export const getApiServiceType = (): ApiServiceType => {
+  if (currentServiceType === null) {
+    currentServiceType = detectServiceType();
+  }
   return currentServiceType;
 };
 
@@ -543,6 +552,10 @@ class ApiService {
   private mockService = new MockApiService();
 
   private getService() {
+    if (currentServiceType === null) {
+      currentServiceType = detectServiceType();
+    }
+    
     console.log(`🔍 getService() called, currentServiceType: ${currentServiceType}`);
     
     if (currentServiceType === ApiServiceType.REAL) {

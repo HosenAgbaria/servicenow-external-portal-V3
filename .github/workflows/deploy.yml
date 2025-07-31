@@ -44,7 +44,8 @@ jobs:
           npx vite build
         env:
           # Environment variables for build
-          VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
+          # Note: VITE_API_BASE_URL is intentionally omitted for GitHub Pages
+          # This allows the frontend to detect GitHub Pages environment and use MOCK data
           VITE_SERVICENOW_BASE_URL: ${{ secrets.VITE_SERVICENOW_BASE_URL }}
           VITE_SERVICENOW_USERNAME: ${{ secrets.VITE_SERVICENOW_USERNAME }}
           VITE_SERVICENOW_PASSWORD: ${{ secrets.VITE_SERVICENOW_PASSWORD }}
